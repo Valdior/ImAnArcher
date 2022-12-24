@@ -1,0 +1,35 @@
+$primary: darken(#428bca, 20%);
+
+:root {
+    --space: 8px;
+    --border: #d5e3ec;
+    --shadow: #d8e1e8;
+    --container-padding: ;
+}
+
+.auth-container {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: calc(4 * var(--space));
+    width: calc(100% - var(--container-padding) * 2);
+    max-width: 400px;
+}
+
+.auth-title {
+    font-size: 52px;
+    font-family: Inter,sans-serif;
+    font-weight: 700;
+    line-height: 1.2;
+    color: $primary;
+    text-align: center;
+    margin-bottom: calc(4 * var(--space));
+}
+
+.auth-form {
+    padding: calc(3 * var(--space));
+    background: var(--card-bg,var(--background-light));
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 4px var(--shadow);
+    border-radius: 3px;
+    transition: .3s;
+}
