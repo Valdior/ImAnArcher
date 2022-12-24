@@ -24,7 +24,7 @@
               <i class="fad fa-user"></i> {{ app.user.username }} </span>
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <li><a class="dropdown-item" href="{{ path('app_profile', {'username': app.user.username}) }}"><i class="fad fa-id-card-alt"></i> {{ 'user.profile.title' | trans }}</a></li>
+              {# <li><a class="dropdown-item" href="{{ path('app_profile', {'username': app.user.username}) }}"><i class="fad fa-id-card-alt"></i> {{ 'user.profile.title' | trans }}</a></li> #}
               <li><a class="dropdown-item" href="#">Another action</a></li>
               <li><a class="dropdown-item" href="#">Something else here</a></li>
               <li><a class="dropdown-item" href="#">Another action</a></li>
@@ -40,7 +40,7 @@
             <a class="nav-link {% if current_menu is defined and current_menu == 'register' %}active{% endif %}" href="{{ path('app_register') }}"><i class="fad fa-user"></i> {{ 'user.registration.title' | trans }}</a>
             </li>
           <li class="nav-item ">
-            {# <a class="nav-link {% if current_menu is defined and current_menu == 'login' %}active{% endif %}" href="{{ path('app_login') }}"><i class="fad fa-sign-in"></i> {{ 'user.loggin.title' | trans }}</a> #}
+            <a class="nav-link {% if current_menu is defined and current_menu == 'login' %}active{% endif %}" href="{{ path('app_login') }}"><i class="fad fa-sign-in"></i> {{ 'user.loggin.title' | trans }}</a>
           </li>
           {% endif %}
         </ul>

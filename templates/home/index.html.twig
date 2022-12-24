@@ -3,4 +3,10 @@
 {% block title %}{% endblock %}
 
 {% block body %}
+    {% include "layout/message.html.twig" %}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    Salut {{ app.user.username }}
+    {% else %}
+    Salut toi :)
+    {% endif %}
 {% endblock %}

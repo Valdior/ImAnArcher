@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% trans_default_domain 'user' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('login') }}
+{% endblock %}
+
+{% block title %}{{ 'form.user.loggin' | trans }}{% endblock %}
+
+{% block body %}
+<form class="form-signin shadow-lg p-3 mb-5 rounded" method="post">
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    {% if app.user %}
+    <section class="row">
+        <article class="col">
+            <div class="mb-3">
+                {{ 'form.user.loggin_yet' | trans }} <strong>{{ app.user.username }}</strong>, <a href="{{ path('app_logout') }}">Logout</a>
+            </div>
+        </article>
+    </section>
+    {% else %}
+
+    <div class="signin-content">
+        <label for="username" class="sr-only">{{ 'form.user.username' | trans }}</label>
+        <input type="text" value="{{ last_username }}" name="_username" id="username" class="form-control" placeholder="{{ 'form.user.username' | trans }}" required autofocus>
+        <label for="password" class="sr-only">{{ 'form.user.password' | trans }}</label>
+        <input type="password" name="_password" id="password" class="form-control" placeholder="{{ 'form.user.password' | trans }}" required>
+
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+        {#
+            Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+            See https://symfony.com/doc/current/security/remember_me.html
+        #}
+        <div class="checkbox mb-3">
+            <label>
+                <input class="form-check-input" type="checkbox" name="_remember_me"> {{ 'form.user.remember_me' | trans }}
+            </label>
+        </div>
+
+        <div class="text-center">
+            <button class="btn btn-lg btn-primary btn-block" type="submit">
+                {{ 'form.user.loggin' | trans }}
+            </button>
+        </div>
+
+        <p class="small mt-2 text-center">
+            {# <a href="{{ path('app_forgot_password_request') }}">{{ 'form.user.password_forgot' | trans }}</a> #}
+            <a href="{{ path('app_register') }}">{{ 'form.user.not_yet_registered' | trans }}</a>
+        </p>
+    </div>
+    {% endif %}
+</form>
+{% endblock %}
