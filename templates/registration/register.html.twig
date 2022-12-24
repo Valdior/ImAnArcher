@@ -1,22 +1,71 @@
 {% extends 'base.html.twig' %}
 
+{% trans_default_domain 'user' %}
+
 {% block title %}Register{% endblock %}
 
+ {% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('login') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('login') }}
+{% endblock %}
+
+
 {% block body %}
-    {% for flash_error in app.flashes('verify_email_error') %}
-        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+<section class="row mt-4">
+    {% for flashError in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
     {% endfor %}
 
-    <h1>Register</h1>
+    {% include "layout/message.html.twig" %}
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.username) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+    <article class="col-xl-6 col-md-12">
+        {{ form_start(registrationForm, {'attr': {'class': 'form-registration shadow-lg p-3 mb-5 rounded'}}) }}
+        <div class="registration-content">
+            {{ form_label(registrationForm.username, null, {'label_attr': {'class': 'sr-only'}}) }}
+            {{ form_widget(registrationForm.username) }}
+            {{ form_errors(registrationForm.username) }}
+            {{ form_label(registrationForm.email, null, {'label_attr': {'class': 'sr-only'}}) }}
+            {{ form_widget(registrationForm.email) }}
+            {{ form_errors(registrationForm.email) }}
+            {{ form_label(registrationForm.plainPassword.first, null, {'label_attr': {'class': 'sr-only'}}) }}
+            {{ form_widget(registrationForm.plainPassword.first) }}
+            {{ form_errors(registrationForm.plainPassword.first) }}
+            {{ form_label(registrationForm.plainPassword.second, null, {'label_attr': {'class': 'sr-only'}}) }}
+            {{ form_widget(registrationForm.plainPassword.second) }}
+            {{ form_errors(registrationForm.plainPassword.second) }}
+            {{ form_row(registrationForm.agreeTerms) }}
+            {{ form_errors(registrationForm.agreeTerms) }}
 
-        <button type="submit" class="btn">Register</button>
+            <p class="small">
+                Vos données personnelles (email et nom d'utilisateur) ne sont utilisées qu'à des fins d'authentification et ne sont pas partagées avec des tiers. 
+            </p>
+            {% if is_granted("role_admin") or app.environment == 'dev' %}
+            <button type="submit" class="btn btn-lg btn-primary btn-block">{{ 'form.user.registrer' | trans }}</button>
+            {% else %}
+            <div class="alert alert-warning">
+                Pour l'instant les inscriptions sont fermée.
+            </div>
+            {% endif %}
+        </div>
     {{ form_end(registrationForm) }}
+    </article>
+    <article class="col-xl-6 col-md-12">
+        <header>
+            <h1 class="mb-2 fw-bold">Pourquoi s'inscrire ?</h1>
+        </header>
+        <p>
+            Devenir membre sur <strong>I'm an Archer</strong>, c'est accéder à du contenu exclusif pour apprendre et s'améliorer dans le domaine de l'archerie.
+            Vous pourrez voire toutes les compétitions qui auront lieux en Belgique ainsi que d'avoir un récapitulatif de vos résultats
+        </p>
+        <p>
+            La création d'un compte est totalement <strong>gratuite</strong>.
+        </p>
+    </article>
+
+</section>
 {% endblock %}
