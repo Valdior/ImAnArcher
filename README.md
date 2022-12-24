@@ -12,7 +12,7 @@ Dans une prochaine étape, on pourrai concevoir une système pour s'enregistrer 
 
 ### Pré-requis
 
-* PHP 8.1
+* PHP 8.1.13
 * Composer
 * Symfony CLI
 Vous pouvez vérifier les pré-requis avec la commande suivante (de la Symfony CLI) :
@@ -41,13 +41,12 @@ php bin/phpunit --testdox
 
 ```bash
 git flow feature start *branche name*
-git flow feature finish *branche name*
 ```
 
 ## Etat d'avancement
 
-* [ ] Configuration de base
-* [ ] Authentification
+* [x] Configuration de base
+* [x] Authentification
 * [ ] Configuration avancé
 * [ ] Création des endpoints pour les entités
 
