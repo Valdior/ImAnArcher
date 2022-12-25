@@ -26,6 +26,8 @@
         "symfonycasts/verify-email-bundle": "^1.12"
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.4",
+        "fakerphp/faker": "^1.21",
         "phpunit/phpunit": "^9.5",
         "squizlabs/php_codesniffer": "^3.7",
         "symfony/browser-kit": "6.2.*",
@@ -62,6 +64,10 @@
         "symfony/polyfill-php81": "*"
     },
     "scripts": {
+        "prepare": [
+            "php bin/console doctrine:schema:update -f",
+            "php bin/console doctrine:fixtures:load --no-interaction"
+        ],
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
