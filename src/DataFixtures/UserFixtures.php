@@ -10,6 +10,10 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserFixtures extends Fixture
 {
+    public const USER_ADMIN = "user-admin";
+    public const USER_USER = "user-user";
+    public const ARCHER_MP = "archer-mp";
+
     private $encoder;
 
     public function __construct(UserPasswordHasherInterface $encoder)
@@ -28,9 +32,12 @@ class UserFixtures extends Fixture
         $user->setEmail('user@test.com')
             ->setUsername($faker->username())
             ->setPassword($password)
-            ->isVerified(true);
+            ->setFirstname($faker->firstname())
+            ->setLastname($faker->lastname())
+            ->setIsVerified(true);
 
         $manager->persist($user);
+        $this->addReference(self::USER_USER, $user);
 
         $admin = new User();
 
@@ -40,7 +47,12 @@ class UserFixtures extends Fixture
             ->setUsername($faker->username())
             ->setPassword($password)
             ->setRoles(['ROLE_ADMIN'])
-            ->isVerified(true);
+            ->setFirstname($faker->firstname())
+            ->setLastname($faker->lastname())
+            ->setIsVerified(true);
+
+        $this->addReference(self::ARCHER_MP, $admin);
+        $this->addReference(self::USER_ADMIN, $admin);
 
 
         $manager->persist($admin);
