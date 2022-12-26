@@ -31,7 +31,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private const GENDER_FEMALE = 'female';
 
     private const DEFAULTARC_RECURVE = 'recurve';
-    private const DEFAULTARC_COMPOUND = 'coumpound';
+    private const DEFAULTARC_COMPOUND = 'compound';
     private const DEFAULTARC_LONGBOW = 'longbow';
     private const DEFAULTARC_BAREBOW = 'barebow';
 
@@ -275,7 +275,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             self::DEFAULTARC_LONGBOW,
             self::DEFAULTARC_BAREBOW))
         ) {
-            throw new \InvalidArgumentException("Invalid gender");
+            throw new \InvalidArgumentException("Invalid type arc");
         }
 
         $this->defaultArc = $defaultArc;

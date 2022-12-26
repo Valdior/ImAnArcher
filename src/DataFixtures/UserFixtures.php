@@ -4,11 +4,12 @@ namespace App\DataFixtures;
 
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class UserFixtures extends Fixture
+class UserFixtures extends Fixture implements DependentFixtureInterface
 {
     public const USER_ADMIN = "user-admin";
     public const USER_USER = "user-user";
@@ -57,5 +58,12 @@ class UserFixtures extends Fixture
 
         $manager->persist($admin);
         $manager->flush();
+    }
+
+    public function getDependencies()
+    {
+        return array(
+            ArcherCategoryFixtures::class
+        );
     }
 }
