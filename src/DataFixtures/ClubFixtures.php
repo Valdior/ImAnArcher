@@ -487,8 +487,6 @@ class ClubFixtures extends Fixture implements DependentFixtureInterface
         $club->setEmail('dreeschtengarcheryclub@gmail.com');
         $manager->persist($club);
 
-        $this->addReference(self::CLUB_MDY, $club);
-
         $manager->flush();
     }
 
