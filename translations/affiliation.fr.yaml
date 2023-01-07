@@ -1,0 +1,6 @@
+form.affiliation.title: 'Demande d''une nouvelle affiliation à un club'
+form.affiliation.affiliate_number: 'Numéro d''affiliation'
+form.affiliation.date_affiliation: 'Date d''affiliation'
+form.affiliation.club: 'Club'
+form.affiliation.archer: 'Archer (vous)'
+form.affiliation.submit: 'S''affilier'
