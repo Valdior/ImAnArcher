@@ -242,10 +242,17 @@ class ClubFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($club);
 
         $club = new Club();
-        $club->setName("Vaniche Archery Team");
-        $club->setAcronym("VAT");
+        $club->setName("Les Francs Archers des Collines");
+        $club->setAcronym("ADC");
         $club->setRegion($this->getReference(RegionFixtures::REGION_HAINAUT));
-        $club->setEmail('leonlejeune9600@gmail.com');
+        $club->setEmail('francs.archers.des.collines@gmail.com');
+        $manager->persist($club);
+
+        $club = new Club();
+        $club->setName("Compagnons Archers de Nalinnes");
+        $club->setAcronym("CAN");
+        $club->setRegion($this->getReference(RegionFixtures::REGION_HAINAUT));
+        $club->setEmail('can@lfbta.be');
         $manager->persist($club);
 
         $club = new Club();
@@ -472,6 +479,13 @@ class ClubFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($club);
 
         $this->addReference(self::CLUB_MDY, $club);
+
+        $club = new Club();
+        $club->setName("Dree Schteng Archery Club Plombières");
+        $club->setAcronym("DSA");
+        $club->setRegion($this->getReference(RegionFixtures::REGION_LIEGE));
+        $club->setEmail('dreeschtengarcheryclub@gmail.com');
+        $manager->persist($club);
 
         $manager->flush();
     }

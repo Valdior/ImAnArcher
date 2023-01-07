@@ -1,0 +1,77 @@
+form.user.group_name: 'Nom du groupe'
+form.user.username: 'Nom d''utilisateur'
+form.user.email: 'Adresse e-mail'
+form.user.current_password: 'Mot de passe actuel'
+form.user.password: 'Mot de passe'
+form.user.password_confirmation: 'Répéter le mot de passe'
+form.user.new_password: 'Nouveau mot de passe'
+form.user.mismatch: 'Les champs du mot de passe doivent correspondre.'
+form.user.terms: 'Vous devez accepter nos conditions.'
+form.user.password_required: 'Entrez votre mot de passe'
+form.user.password_min_value: 'Votre mot de passe doit comporter au moins {{ limit }} caractères'
+form.user.agreeTerms: 'J''accepte les conditions'
+form.user.registrer: 'S''inscrire'
+form.user.password_forgot: 'Mot de passe oublié ?'
+form.user.loggin_yet: 'Vous êtes connecté en tant que'
+form.user.loggin: 'Se connecter'
+form.user.not_yet_registered: 'pas encore inscrit ?'
+form.user.delete: 'Supprimer mon compte'
+
+form.loggin.submit: 'Se connecter'
+form.loggin.remember_me: 'Se souvenir de moi'
+form.user.remember_me: 'Se souvenir de moi'
+
+form.profil.title: 'Mon profile'
+form.profil.edit.title: 'Editer vos informations'
+form.profil.tab.general_info: 'Information Générale'
+form.profil.tab.archer: 'Archer'
+form.profil.tab.other: 'Autres'
+form.profil.tab.social_network: 'Réseaux Sociaux'
+form.profil.fullname: 'Nom & Prénom'
+form.profil.firstname: 'Prénom'
+form.profil.lastname: 'Nom'
+form.profil.birthdate: 'Année de naissance'
+form.profil.gender: 'Sexe'
+form.profil.email: 'Email'
+form.profil.default_arc: 'Arc par défaut'
+form.profil.default_category: 'Catégorie par défaut'
+form.profil.username: 'Pseudonyme'
+form.profil.status: 'Status'
+form.profil.club: 'Club'
+form.profil.affiliate_number: 'Numéro d''affiliation'
+form.profil.patent: 'Brevêt'
+form.profil.button.back: 'Revenir en arrière'
+form.profil.button.change_password: 'Demande de changement de mot de passe'
+form.profil.button.edit_profil: 'Editer vos informations'
+form.profil.button.update: 'Mettre à jour'
+form.profil.button.transfer_request: 'Demande de transfert'
+form.profil.button.imanarcher: 'Je suis un archer'
+
+
+profil.flash.updated: 'Votre profil a bien été mis à jour'
+
+form.constraint.email: 'The email {{ value }} is not a valid email.'
+
+form.reset.reset_your_password: 'Mot de passe oublié ? '
+form.reset.description: 'Saisissez votre adresse email et nous vous enverrons un lien pour réinitialiser votre mot de passe.'
+form.reset.send_reset_mail: 'M''envoyer les instructions par email'
+form.reset.reset_password: 'Réinitialiser votre mot de passe'
+form.reset.sent_reset_password: 'Instructions envoyé par email'
+form.reset.instruction_description: '<p>Un email a été envoyé contenant un lien sur lequel vous pouvez cliquer pour réinitialiser votre mot de passe. Ce lien expirera dans %count% heure.s.</p>
+    <p>Si vous ne recevez pas d''e-mail, veuillez vérifier votre dossier de courrier indésirable ou <a href="%password_request%">réessayer</a>.</p>'
+form.user.email_registration: '<h1>Bonjour ! Veuillez confirmer votre email !</h1>
+
+<p>
+    Veuillez confirmer votre email en cliquant sur le lien suivant: <br><br>
+    <a href="%signedUrl%">Confirmer mon email</a>.
+    Ce lien expirera dans %expiresAt% heure.s.
+</p>
+
+<p>
+    Merci !
+</p>
+'
+user.profile.title: 'Profile'
+user.loggin.title: 'Se connecter'
+user.logout.title: 'Déconnexion'
+user.registration.title: Inscription

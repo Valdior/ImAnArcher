@@ -35,6 +35,7 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
+                'label' => 'form.user.agreeTerms',
                 'constraints' => [
                     new IsTrue([
                         'message' => 'You should agree to our terms.',
@@ -87,6 +88,7 @@ class RegistrationFormType extends AbstractType
             'csrf_token_id' => 'registration',
             'csrf_protection' => true,
             'csrf_field_name' => '_token',
+            'translation_domain' => 'user'
         ]);
     }
 }

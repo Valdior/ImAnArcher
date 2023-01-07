@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\ResetPasswordRequest;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -14,7 +15,11 @@ class ResetPasswordRequestFormType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class, [
-                'attr' => ['autocomplete' => 'email'],
+                'label' => 'form.user.email',
+                'attr' => [
+                    'placeholder' => 'form.user.email',
+                    'autocomplete' => 'email'
+                ],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter your email',
@@ -26,6 +31,11 @@ class ResetPasswordRequestFormType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults([]);
+        $resolver->setDefaults([
+            'csrf_token_id' => 'registration',
+            'csrf_protection' => true,
+            'csrf_field_name' => '_token',
+            'translation_domain' => 'user'
+        ]);
     }
 }
