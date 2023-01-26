@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% trans_default_domain 'user' %}
+
+{% block title %}{{ 'form.profil.edit.title' | trans }}{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+{{ encore_entry_link_tags('profile') }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ 'form.profil.edit.title' | trans }}</h1>
+
+    {{ include('profile/_form.html.twig' ) }}
+
+    <a class="btn btn-secondary" href="{{ path('app_profile') }}"><i class="fad fa-chevron-left"></i> {{ 'form.profil.button.back' | trans }}</a>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+{{ encore_entry_script_tags('profile') }}
+{% endblock %}
