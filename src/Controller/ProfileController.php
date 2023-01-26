@@ -33,8 +33,12 @@ class ProfileController extends AbstractController
      * @Route("/profile/{username}", name="profile_edit")
      */
     #[Route('/profile/{username}', name: 'app_profile_edit', methods: ['GET'])]
-    public function edit(Request $request, User $user, EntityManagerInterface $entityManager, TranslatorInterface $translator)
-    {
+    public function edit(
+        Request $request,
+        User $user,
+        EntityManagerInterface $entityManager,
+        TranslatorInterface $translator
+    ) {
         /** @var User $userConnected */
         $userConnected = $this->getUser();
 
