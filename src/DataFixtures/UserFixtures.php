@@ -31,10 +31,12 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $password = $this->encoder->hashPassword($user, 'user');
 
         $user->setEmail('user@test.com')
-            ->setUsername($faker->username())
+            ->setUsername('user')
             ->setPassword($password)
             ->setFirstname($faker->firstname())
             ->setLastname($faker->lastname())
+            ->setBirthdate($faker->dateTime())
+            ->setGender('male')
             ->setIsVerified(true);
 
         $manager->persist($user);
@@ -45,11 +47,13 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $password = $this->encoder->hashPassword($admin, 'admin');
 
         $admin->setEmail('admin@test.com')
-            ->setUsername($faker->username())
+            ->setUsername('admin')
             ->setPassword($password)
             ->setRoles(['ROLE_ADMIN'])
             ->setFirstname($faker->firstname())
             ->setLastname($faker->lastname())
+            ->setBirthdate($faker->dateTime())
+            ->setGender('male')
             ->setIsVerified(true);
 
         $this->addReference(self::ARCHER_MP, $admin);

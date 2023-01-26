@@ -1,0 +1,207 @@
+{% extends 'base.html.twig' %}
+
+{% trans_default_domain 'user' %}
+
+{% block title %}{{ 'form.profil.title' | trans }}{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+{{ encore_entry_link_tags('profile') }}
+{% endblock %}
+
+{% block body %}
+
+{{ include('layout/message.html.twig') }}
+
+<section class="row">
+    <div class="col-xl">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-title mb-4">
+                    <div class="d-flex justify-content-start">
+                        <div class="image-container">
+                            <img src="https://via.placeholder.com/150" id="imgProfile" style="width: 150px; height: 150px" class="img-thumbnail" />
+                            <div class="middle">
+                                <input type="button" class="btn btn-secondary" id="btnChangePicture" value="Change" />
+                                <input type="file" style="display: none;" id="profilePicture" name="file" />
+                            </div>
+                        </div>
+                        <div class="userData ms-3">
+                            <h2 class="d-block" style="font-size: 1.5rem; font-weight: bold"> <a href="javascript:void(0);">{{ user.username }}</a></h2>
+                            {# <h6 class="d-block"><a href="javascript:void(0)">1,500</a> Video Uploads</h6>
+                            <h6 class="d-block"><a href="javascript:void(0)">300</a> Blog Posts</h6> #}
+                        </div>
+                        <div class="ms-auto">
+                            <input type="button" class="btn btn-primary d-none" id="btnDiscard" value="Discard Changes" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="basicInfo-tab" data-bs-toggle="tab" href="#basicInfo" role="tab" aria-controls="basicInfo" aria-selected="true">{{ 'form.profil.tab.general_info' | trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="archerInfo-tab" data-bs-toggle="tab" href="#archerinfo" role="tab" aria-controls="archerinfo" aria-selected="false">{{ 'form.profil.tab.archer' | trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="otherInfo-tab" data-bs-toggle="tab" href="#otherinfo" role="tab" aria-controls="otherinfo" aria-selected="false">{{ 'form.profil.tab.other' | trans }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="connectedServices-tab" data-bs-toggle="tab" href="#connectedServices" role="tab" aria-controls="connectedServices" aria-selected="false">{{ 'form.profil.tab.social_network' | trans }}</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content ml-1" id="myTabContent">
+                            <div class="tab-pane fade show active" id="basicInfo" role="tabpanel" aria-labelledby="basicInfo-tab">
+                                <div class="row">
+                                    <div class="col-sm-3 col-md-2 col-5">
+                                        <label style="font-weight:bold;">{{ 'form.profil.fullname' | trans }}</label>
+                                    </div>
+                                    <div class="col-md-8 col-6">
+                                        {{ user.fullname }}
+                                    </div>
+                                </div>
+                                <hr />
+
+                                <div class="row">
+                                    <div class="col-sm-3 col-md-2 col-5">
+                                        <label style="font-weight:bold;">{{ 'form.profil.birthdate' | trans }}</label>
+                                    </div>
+                                    <div class="col-md-8 col-6">
+                                        {{ user.birthdate is empty ? "" : user.birthdate|date("F j Y") }}
+                                    </div>
+                                </div>
+                                <hr />
+
+                                <div class="row">
+                                    <div class="col-sm-3 col-md-2 col-5">
+                                        <label style="font-weight:bold;">{{ 'form.profil.gender' | trans }}</label>
+                                    </div>
+                                    <div class="col-md-8 col-6">
+                                        {{ user.gender }}
+                                    </div>
+                                </div>
+
+                                <hr />
+                                <div class="row">
+                                    <div class="col-sm-3 col-md-2 col-5">
+                                        <label style="font-weight:bold;">{{ 'form.profil.email' | trans }}</label>
+                                    </div>
+                                    <div class="col-md-8 col-6">
+                                        {{ user.email }}
+                                    </div>
+                                </div>
+                                <hr />
+
+                            </div>
+
+                            <div class="tab-pane fade" id="archerinfo" role="tabpanel" aria-labelledby="archerInfo-tab">
+                                <div class="row">
+                                    <div class="col-sm-3 col-md-2 col-5">
+                                        <label style="font-weight:bold;">{{ 'form.profil.affiliate_number' | trans }}</label>
+                                    </div>
+                                    <div class="col-md-8 col-6">
+                                        {% if affiliate is defined %}
+                                        {{ affiliate.affiliatenumber }}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-sm-3 col-md-2 col-5">
+                                        <label style="font-weight:bold;">{{ 'form.profil.club' | trans }}</label>
+                                    </div>
+                                    <div class="col-md-8 col-6">
+                                        {% if affiliate is defined %}
+                                        {{ affiliate.club.fullname }}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-sm-3 col-md-2 col-5">
+                                        <label style="font-weight:bold;">{{ 'form.profil.status' | trans }}</label>
+                                    </div>
+                                    <div class="col-md-8 col-6">
+                                        {{ user.status }}
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-sm-3 col-md-2 col-5">
+                                        <label style="font-weight:bold;">{{ 'form.profil.default_arc' | trans }}</label>
+                                    </div>
+                                    <div class="col-md-8 col-6">
+                                        {{ user.defaultarc }}
+                                    </div>
+                                </div>
+                                <hr />
+                                 <div class="row">
+                                    <div class="col-sm-3 col-md-2 col-5">
+                                        <label style="font-weight:bold;">{{ 'form.profil.default_category' | trans }}</label>
+                                    </div>
+                                    <div class="col-md-8 col-6">
+                                        {% if user.defaultcategory is defined and user.defaultcategory is not null %}
+                                        {{ user.defaultcategory.acronym }}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-sm-3 col-md-2 col-5">
+                                        <label style="font-weight:bold;">{{ 'form.profil.patent' | trans }}</label>
+                                    </div>
+                                    <div class="col-md-8 col-6">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="otherinfo" role="tabpanel" aria-labelledby="otherInfo-tab">
+                                <div class="row">
+                                <div class="col-sm-3 col-md-2 col-5">
+                                        <label style="font-weight:bold;">{{ 'form.user.delete' | trans }}</label>
+                                    </div>
+                                    <div class="col-md-8 col-6">
+                                        {# <form method="post" action="{{ path('user_delete', {'username': user.username}) }}" onsubmit="return confirm('Sûr de sûr ?');">
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+                                            <button class="btn btn-outline-danger"><i class="fad fa-trash-alt"></i> {{ 'form.user.delete' | trans }}</button>
+                                        </form> #}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="connectedServices" role="tabpanel" aria-labelledby="connectedServices-tab">
+                                Facebook, Google, Twitter Account that are connected to this account
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        {# {% else %}
+        <div class="btn-group" role="toolbar" aria-label="Toolbar with button groups">
+            <a class="btn btn-primary" href="{{ path('app_forgot_password_request') }}"><i class="fad fa-key"></i> Change password</a>
+            <a class="btn btn-secondary" href="{{ path('archer_new') }}"><i class="fad fa-bow-arrow"></i> Set Archer</a>
+        </div>
+        #}
+        {# {% endif %} #}
+        <div class="btn-group" role="toolbar" aria-label="Toolbar with button groups">
+            <a class="btn btn-primary" href="{{ path('app_forgot_password_request') }}"><i class="fad fa-key"></i> {{ 'form.profil.button.change_password' | trans }}</a>
+            <a class="btn btn-info" href="{{ path('profile_edit', {'username': user.username}) }}"><i class="fad fa-user-edit"></i> {{ 'form.profil.button.edit_profil' | trans }}</a>
+            {# <a class="btn btn-secondary" href="{{ path('archer_affiliation', {'username': user.username}) }}"><i class="fad fa-bow-arrow"></i> {{ 'form.profil.button.transfer_request' | trans }}</a> #}
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+{{ encore_entry_script_tags('profile') }}
+{% endblock %}

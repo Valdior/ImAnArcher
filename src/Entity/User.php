@@ -87,6 +87,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->setStatus(self::STATUS_ACTIVE);
     }
 
+    public static function getGenderList()
+    {
+        return [self::GENDER_MALE, self::GENDER_FEMALE];
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -252,7 +257,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setGender(?string $gender): self
     {
-        if (!in_array($gender, array(self::GENDER_MALE, self::GENDER_FEMALE))) {
+        if ($gender === null) {
+            $this->gender = null;
+            return $this;
+        }
+
+        if (!in_array($gender, self::getGenderList())) {
             throw new \InvalidArgumentException("Invalid gender");
         }
 
@@ -286,5 +296,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function isIsVerified(): ?bool
     {
         return $this->isVerified;
+    }
+
+    public function getFullName(): ?string
+    {
+        return $this->getLastname() . ' ' . $this->getFirstname();
     }
 }

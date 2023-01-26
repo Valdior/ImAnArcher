@@ -1,0 +1,142 @@
+{% trans_default_domain 'user' %}
+
+{{ form_start(form) }}
+
+<section class="row">
+    <div class="col-xl">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-title mb-4">
+                    <div class="d-flex justify-content-start">
+                        <div class="image-container">
+                            {# Implémenter l'ajout d'un avatar #}
+                            <img src="https://via.placeholder.com/150" id="imgProfile" style="width: 150px; height: 150px" class="img-thumbnail" />
+                            <div class="middle">
+                                <input type="button" class="btn btn-secondary" id="btnChangePicture" value="Change" />
+                                <input type="file" style="display: none;" id="profilePicture" name="file" />
+                            </div>
+                        </div>
+                        <div class="userData ml-3">
+                            <h2 class="d-block" style="font-size: 1.5rem; font-weight: bold"><a href="javascript:void(0);"></a></h2>
+                        </div>
+                        <div class="ml-auto">
+                            <input type="button" class="btn btn-primary d-none" id="btnDiscard" value="Discard Changes" />
+                        </div>
+                    </div>
+                </div>
+
+                {% set isArcher = 'ROLE_ARCHER' in form.vars.value.roles %}
+                <div class="row">
+                    <div class="col-12">
+                        <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
+                            <li class="nav-item"  role="presentation">
+                                <a class="nav-link active" id="basicInfo-tab" data-bs-toggle="tab" href="#basicInfo" role="tab" aria-controls="basicInfo" aria-selected="true">{{ 'form.profil.tab.general_info' | trans }}</a>
+                            </li>
+                            <li class="nav-item"  role="presentation">
+                                <a class="nav-link {% if not isArcher %}disabled{% endif %}" id="archerInfo-tab" data-bs-toggle="tab" href="#archerinfo" role="tab" aria-controls="archerinfo" aria-selected="false">{{ 'form.profil.tab.archer' | trans }}</a>
+                            </li>
+                            <li class="nav-item"  role="presentation">
+                                <a class="nav-link" id="userInfo-tab" data-bs-toggle="tab" href="#userinfo" role="tab" aria-controls="userinfo" aria-selected="false">{{ 'form.profil.tab.other' | trans }}</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content ml-1" id="myTabContent">
+                            <div class="tab-pane fade show active" id="basicInfo" role="tabpanel" aria-labelledby="basicInfo-tab">
+                                 <div class="row">
+                                    <div class="col-sm-3 col-md-2 col-5">
+                                        <label style="font-weight:bold;">{{ 'form.profil.username' | trans }}</label>
+                                    </div>
+                                    <div class="col-md-8 col-6">
+                                        {{ form_widget(form.username) }}
+                                    </div>
+                                </div>
+                                <hr />
+
+                                <div class="row">
+                                    <div class="col-sm-3 col-md-2 col-5">
+                                        <label style="font-weight:bold;">{{ 'form.profil.firstname' | trans }}</label>
+                                    </div>
+                                    <div class="col-md-8 col-6">
+                                        {{ form_widget(form.firstname) }}
+                                    </div>
+                                </div>
+                                <hr />
+
+                                <div class="row">
+                                    <div class="col-sm-3 col-md-2 col-5">
+                                        <label style="font-weight:bold;">{{ 'form.profil.lastname' | trans }}</label>
+                                    </div>
+                                    <div class="col-md-8 col-6">
+                                        {{ form_widget(form.lastname) }}
+                                    </div>
+                                </div>
+                                <hr />
+
+                                <div class="row">
+                                    <div class="col-sm-3 col-md-2 col-5">
+                                        <label style="font-weight:bold;">{{ 'form.profil.birthdate' | trans }}</label>
+                                    </div>
+                                    <div class="col-md-8 col-6">
+                                        {{ form_widget(form.birthdate) }}
+                                    </div>
+                                </div>
+                                <hr />
+
+                                <div class="row">
+                                    <div class="col-sm-3 col-md-2 col-5">
+                                        <label style="font-weight:bold;">{{ 'form.profil.gender' | trans }}</label>
+                                    </div>
+                                    <div class="col-md-8 col-6">
+                                        {{ form_widget(form.gender) }}
+                                    </div>
+                                </div>
+                                <hr />
+
+                                <div class="row">
+                                    <div class="col-sm-3 col-md-2 col-5">
+                                        <label style="font-weight:bold;">{{ 'form.profil.email' | trans }}</label>
+                                    </div>
+                                    <div class="col-md-8 col-6">
+                                        {{ form_widget(form.email) }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            {# il faudra surement prévoir un include pour éviter de charger les informations sur l'archer alors
+                            qu'elles n'existent pas encore #}
+                            {% if isArcher %}
+                            <div class="tab-pane fade" id="archerinfo" role="tabpanel" aria-labelledby="archerInfo-tab">
+                                <div class="row">
+                                    <div class="col-sm-3 col-md-2 col-5">
+                                        <label style="font-weight:bold;">{{ 'form.profil.default_arc' | trans }}</label>
+                                    </div>
+                                    <div class="col-md-8 col-6">
+                                        {{ form_widget(form.defaultarc) }}
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-sm-3 col-md-2 col-5">
+                                        <label style="font-weight:bold;">{{ 'form.profil.default_category' | trans }}</label>
+                                    </div>
+                                    <div class="col-md-8 col-6">
+                                        {{ form_widget(form.defaultcategory) }}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+
+                            {# Devra contenir les infiramtion pour les liens vers les réseaux sociaux #}
+                            <div class="tab-pane fade" id="userinfo" role="tabpanel" aria-labelledby="userInfo-tab">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="btn-group" role="toolbar" aria-label="Toolbar with button groups">
+                {# <button class="btn btn-danger" type="reset"> {{ 'form.profil.button.cancel' | trans }}</button> #}
+                <button class="btn btn-primary" type="submit"><i class="fad fa-check"></i> {{ 'form.profil.button.update' | trans }}</button>
+            </div>
+        </div>
+    </div>
+</section>
+{{ form_end(form) }}
