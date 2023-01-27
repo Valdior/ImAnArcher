@@ -40,9 +40,13 @@ class Club
     #[ORM\OneToMany(mappedBy: 'club', targetEntity: Affiliate::class, orphanRemoval: true)]
     private Collection $members;
 
+    #[ORM\OneToMany(mappedBy: 'organizer', targetEntity: Tournament::class)]
+    private Collection $tournaments;
+
     public function __construct()
     {
         $this->members = new ArrayCollection();
+        $this->tournaments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -134,6 +138,36 @@ class Club
             // set the owning side to null (unless already changed)
             if ($member->getClub() === $this) {
                 $member->setClub(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Tournament>
+     */
+    public function getTournaments(): Collection
+    {
+        return $this->tournaments;
+    }
+
+    public function addTournament(Tournament $tournament): self
+    {
+        if (!$this->tournaments->contains($tournament)) {
+            $this->tournaments->add($tournament);
+            $tournament->setOrganizer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTournament(Tournament $tournament): self
+    {
+        if ($this->tournaments->removeElement($tournament)) {
+            // set the owning side to null (unless already changed)
+            if ($tournament->getOrganizer() === $this) {
+                $tournament->setOrganizer(null);
             }
         }
 
