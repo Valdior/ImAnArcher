@@ -1,0 +1,14 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Peloton{% endblock %}
+
+{% block body %}
+    <h1>Edit Peloton</h1>
+
+    {{ include('peloton/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_tournament_show', {'id': peloton.tournament.id}) }}">back to list</a>
+
+    {{ include('peloton/_delete_form.html.twig') }}
+{% endblock %}

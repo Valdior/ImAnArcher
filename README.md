@@ -29,7 +29,7 @@ php -S localhost:8000 -t public
 composer prepare
 ```
 
-## Lancer les test
+## Lancer les tests
 
 ```bash
 .\vendor\bin\phpcbf

@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tournament index{% endblock %}
+
+{% block body %}
+    <h1>Tournament index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Organisateur</th>
+                <th>StartDate</th>
+                <th>EndDate</th>
+                <th>Type</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tournament in tournaments %}
+            <tr>
+                <td>{{ tournament.organizer.acronym }} - {{ tournament.organizer.name }}</td>
+                <td>{{ tournament.startDate ? tournament.startDate|date('d-m-Y') : '' }}</td>
+                <td>{{ tournament.endDate ? tournament.endDate|date('d-m-Y') : '' }}</td>
+                <td>{{ tournament.type.name }}</td>
+                <td>
+                    <a href="{{ path('app_tournament_show', {'id': tournament.id}) }}">show</a>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('app_tournament_edit', {'id': tournament.id}) }}">edit</a>
+                {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% if is_granted('ROLE_ADMIN') %}
+    <a href="{{ path('app_tournament_new') }}">Create new</a>
+{% endif %}
+{% endblock %}
