@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tournament{% endblock %}
+
+{% block body %}
+    <h1>Tournament</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Organisateur</th>
+                <td>{{ tournament.organizer.acronym }} - {{ tournament.organizer.name }}</td>
+            </tr>
+            <tr>
+                <th>StartDate</th>
+                <td>{{ tournament.startDate ? tournament.startDate|date('d-m-Y') : '' }}</td>
+            </tr>
+            <tr>
+                <th>EndDate</th>
+                <td>{{ tournament.endDate ? tournament.endDate|date('d-m-Y') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ tournament.type.name }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    {% if date(tournament.endDate) > date("now") or is_granted('ROLE_ADMIN')   %}
+    <div class="row">
+        <section class="col-md-6">
+            <h3>Pelotons</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Peleton</th>
+                        <th>Début compétition</th>
+                        <th>Type</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for peloton in tournament.pelotons %}
+                    <tr>
+                        <td>#{{ loop.index }}</td>
+                        <td>{{ peloton.starttime|date('d-m-Y H:i') }}</td>
+                        <td>{{ peloton.type.label }}</td>
+                        <td><a href="{{ path('peloton_show', {'tournament': tournament.id, 'id' : peloton.id}) }}" >Show</a>
+                        {% if is_granted('ROLE_ARCHER') %}
+                            {# <a href="{{ path('peloton_register', {'tournament': tournament.id, 'id' : peloton.id}) }}">S'inscrire</a> #}
+                        {% endif %}
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4">no records found</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('peloton_new', {'tournament': tournament.id}) }}">Create new</a>
+            {% endif %}
+        </section>
+    </div>
+    {% endif %}
+
+    {% if date(tournament.endDate) < date("now") %}
+    {# {{ render(controller('App\\Controller\\TournamentController::ranking', {'id': tournament.id})) }} #}
+    {% endif %}
+
+    <a href="{{ path('app_tournament') }}">back to list</a>
+{% if is_granted('ROLE_ADMIN') %}
+    <a href="{{ path('app_tournament_edit', {'id': tournament.id}) }}">edit</a>
+
+    {{ include('tournament/_delete_form.html.twig') }}
+{% endif %}
+{% endblock %}

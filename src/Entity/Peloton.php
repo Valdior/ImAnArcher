@@ -18,20 +18,15 @@ class Peloton
     #[ORM\Column]
     private ?int $maxParticipants = null;
 
-    #[ORM\Column]
-    private ?int $type = null;
+    #[ORM\Column(type: Types::INTEGER, enumType: PelotonTypeEnum::class)]
+    private ?PelotonTypeEnum $type = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $startime = null;
+    private ?\DateTimeInterface $startTime = null;
 
     #[ORM\ManyToOne(inversedBy: 'pelotons')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Tournament $tournament = null;
-
-    public static function getTypeList()
-    {
-        return array(PelotonTypeEnum::TYPE_18->value, PelotonTypeEnum::TYPE_25->value, PelotonTypeEnum::TYPE_50_30->value, PelotonTypeEnum::TYPE_50->value, PelotonTypeEnum::TYPE_70->value, PelotonTypeEnum::TYPE_1440->value);
-    }
 
     public function getId(): ?int
     {
@@ -50,30 +45,26 @@ class Peloton
         return $this;
     }
 
-    public function getType(): ?int
+    public function getType(): PelotonTypeEnum
     {
         return $this->type;
     }
 
-    public function setType(int $type): self
+    public function setType(PelotonTypeEnum $type): self
     {
-        if (!in_array($type, self::getTypeList())) {
-            throw new \InvalidArgumentException("Invalid type");
-        }
-
         $this->type = $type;
 
         return $this;
     }
 
-    public function getStartime(): ?\DateTimeInterface
+    public function getStartTime(): ?\DateTimeInterface
     {
-        return $this->startime;
+        return $this->startTime;
     }
 
-    public function setStartime(\DateTimeInterface $startime): self
+    public function setStartTime(\DateTimeInterface $startTime): self
     {
-        $this->startime = $startime;
+        $this->startTime = $startTime;
 
         return $this;
     }

@@ -31,7 +31,7 @@ class TournamentFixtures extends Fixture implements DependentFixtureInterface
         $tournament = new Tournament();
         $tournament->setStartDate(new \DateTime("09/08/2018"));
         $tournament->setEndDate(new \DateTime("09/09/2018"));
-        $tournament->setType(TournamentTypeEnum::Outdoor->value);
+        $tournament->setType(TournamentTypeEnum::Outdoor);
         $tournament->setOrganizer($this->getReference(ClubFixtures::CLUB_ACG));
         $manager->persist($tournament);
 
@@ -40,7 +40,7 @@ class TournamentFixtures extends Fixture implements DependentFixtureInterface
         $tournament = new Tournament();
         $tournament->setStartDate(new \DateTime("10/20/2018"));
         $tournament->setEndDate(new \DateTime("10/21/2018"));
-        $tournament->setType(TournamentTypeEnum::Indoor->value);
+        $tournament->setType(TournamentTypeEnum::Indoor);
         $tournament->setOrganizer($this->getReference(ClubFixtures::CLUB_ADS));
         $manager->persist($tournament);
 
@@ -49,7 +49,7 @@ class TournamentFixtures extends Fixture implements DependentFixtureInterface
         $tournament = new Tournament();
         $tournament->setStartDate(new \DateTime("11/18/2018"));
         $tournament->setEndDate(new \DateTime("11/18/2018"));
-        $tournament->setType(TournamentTypeEnum::Indoor->value);
+        $tournament->setType(TournamentTypeEnum::Indoor);
         $tournament->setOrganizer($this->getReference(ClubFixtures::CLUB_MDY));
         $manager->persist($tournament);
 
@@ -58,7 +58,7 @@ class TournamentFixtures extends Fixture implements DependentFixtureInterface
         $tournament = new Tournament();
         $tournament->setStartDate(new \DateTime("11/24/2018"));
         $tournament->setEndDate(new \DateTime("11/25/2018"));
-        $tournament->setType(TournamentTypeEnum::Indoor->value);
+        $tournament->setType(TournamentTypeEnum::Indoor);
         $tournament->setOrganizer($this->getReference(ClubFixtures::CLUB_ACG));
         $manager->persist($tournament);
 
@@ -67,7 +67,7 @@ class TournamentFixtures extends Fixture implements DependentFixtureInterface
         $tournament = new Tournament();
         $tournament->setStartDate(new \DateTime("12/16/2018"));
         $tournament->setEndDate(new \DateTime("12/16/2018"));
-        $tournament->setType(TournamentTypeEnum::Indoor->value);
+        $tournament->setType(TournamentTypeEnum::Indoor);
         $tournament->setOrganizer($this->getReference(ClubFixtures::CLUB_LIE));
         $manager->persist($tournament);
 
@@ -76,7 +76,7 @@ class TournamentFixtures extends Fixture implements DependentFixtureInterface
         $tournament = new Tournament();
         $tournament->setStartDate(new \DateTime("01/12/2019"));
         $tournament->setEndDate(new \DateTime("01/13/2019"));
-        $tournament->setType(TournamentTypeEnum::Indoor->value);
+        $tournament->setType(TournamentTypeEnum::Indoor);
         $tournament->setOrganizer($this->getReference(ClubFixtures::CLUB_ACG));
         $manager->persist($tournament);
 
@@ -85,7 +85,7 @@ class TournamentFixtures extends Fixture implements DependentFixtureInterface
         $tournament = new Tournament();
         $tournament->setStartDate(new \DateTime("01/20/2019"));
         $tournament->setEndDate(new \DateTime("01/20/2019"));
-        $tournament->setType(TournamentTypeEnum::Indoor->value);
+        $tournament->setType(TournamentTypeEnum::Indoor);
         $tournament->setOrganizer($this->getReference(ClubFixtures::CLUB_ITW));
         $manager->persist($tournament);
 
@@ -94,7 +94,7 @@ class TournamentFixtures extends Fixture implements DependentFixtureInterface
         $tournament = new Tournament();
         $tournament->setStartDate(new \DateTime("02/23/2019"));
         $tournament->setEndDate(new \DateTime("02/23/2019"));
-        $tournament->setType(TournamentTypeEnum::Indoor->value);
+        $tournament->setType(TournamentTypeEnum::Indoor);
         $tournament->setOrganizer($this->getReference(ClubFixtures::CLUB_LIE));
         $manager->persist($tournament);
 
@@ -103,14 +103,14 @@ class TournamentFixtures extends Fixture implements DependentFixtureInterface
         $tournament = new Tournament();
         $tournament->setStartDate(new \DateTime("03/09/2019"));
         $tournament->setEndDate(new \DateTime("03/10/2019"));
-        $tournament->setType(TournamentTypeEnum::Indoor->value);
+        $tournament->setType(TournamentTypeEnum::Indoor);
         $tournament->setOrganizer($this->getReference(ClubFixtures::CLUB_HUY));
         $manager->persist($tournament);
 
         $this->addReference(self::TOURN_HUY, $tournament);
         $tournament->setStartDate(new \DateTime("10/06/2018"));
         $tournament->setEndDate(new \DateTime("10/07/2018"));
-        $tournament->setType(TournamentTypeEnum::Indoor->value);
+        $tournament->setType(TournamentTypeEnum::Indoor);
         $tournament->setOrganizer($this->getReference(ClubFixtures::CLUB_FBG));
         $manager->persist($tournament);
 
@@ -119,7 +119,7 @@ class TournamentFixtures extends Fixture implements DependentFixtureInterface
         $tournament = new Tournament();
         $tournament->setStartDate(new \DateTime("10/13/2018"));
         $tournament->setEndDate(new \DateTime("10/14/2018"));
-        $tournament->setType(TournamentTypeEnum::Indoor->value);
+        $tournament->setType(TournamentTypeEnum::Indoor);
         $tournament->setOrganizer($this->getReference(ClubFixtures::CLUB_BEA));
         $manager->persist($tournament);
 
@@ -128,7 +128,7 @@ class TournamentFixtures extends Fixture implements DependentFixtureInterface
         $tournament = new Tournament();
         $tournament->setStartDate(new \DateTime("10/14/2018"));
         $tournament->setEndDate(new \DateTime("10/14/2018"));
-        $tournament->setType(TournamentTypeEnum::Indoor->value);
+        $tournament->setType(TournamentTypeEnum::Indoor);
         $tournament->setOrganizer($this->getReference(ClubFixtures::CLUB_CAB));
         $manager->persist($tournament);
 
@@ -137,7 +137,7 @@ class TournamentFixtures extends Fixture implements DependentFixtureInterface
         $tournament = new Tournament();
         $tournament->setStartDate(new \DateTime("11/10/2018"));
         $tournament->setEndDate(new \DateTime("11/11/2018"));
-        $tournament->setType(TournamentTypeEnum::Indoor->value);
+        $tournament->setType(TournamentTypeEnum::Indoor);
         $tournament->setOrganizer($this->getReference(ClubFixtures::CLUB_CMA));
         $manager->persist($tournament);
 
@@ -146,7 +146,7 @@ class TournamentFixtures extends Fixture implements DependentFixtureInterface
         $tournament = new Tournament();
         $tournament->setStartDate(new \DateTime("12/08/2018"));
         $tournament->setEndDate(new \DateTime("12/09/2018"));
-        $tournament->setType(TournamentTypeEnum::Indoor->value);
+        $tournament->setType(TournamentTypeEnum::Indoor);
         $tournament->setOrganizer($this->getReference(ClubFixtures::CLUB_GSR));
         $manager->persist($tournament);
 

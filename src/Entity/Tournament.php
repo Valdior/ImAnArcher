@@ -23,8 +23,8 @@ class Tournament
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $endDate = null;
 
-    #[ORM\Column]
-    private ?int $type = null;
+    #[ORM\Column(type: Types::INTEGER, enumType: TournamentTypeEnum::class)]
+    private ?TournamentTypeEnum $type = null;
 
     #[ORM\ManyToOne(inversedBy: 'tournaments')]
     private ?Club $organizer = null;
@@ -35,11 +35,6 @@ class Tournament
     public function __construct()
     {
         $this->pelotons = new ArrayCollection();
-    }
-
-    public static function getTypeList()
-    {
-        return [TournamentTypeEnum::Indoor->value, TournamentTypeEnum::Outdoor->value];
     }
 
     public function getId(): ?int
@@ -67,22 +62,6 @@ class Tournament
     public function setEndDate(\DateTimeInterface $endDate): self
     {
         $this->endDate = $endDate;
-
-        return $this;
-    }
-
-    public function getType(): int
-    {
-        return self::getTypeList()[$this->type];
-    }
-
-    public function setType(int $type): self
-    {
-        if (!in_array($type, self::getTypeList())) {
-            throw new \InvalidArgumentException("Invalid type");
-        }
-
-        $this->type = $type;
 
         return $this;
     }
@@ -125,6 +104,18 @@ class Tournament
                 $peloton->setTournament(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getType(): ?TournamentTypeEnum
+    {
+        return $this->type;
+    }
+
+    public function setType(TournamentTypeEnum $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }

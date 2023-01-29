@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Peloton{% endblock %}
+
+{% block body %}
+    <h1>Peloton</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Max Participant</th>
+                <td>{{ peloton.maxParticipants }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ peloton.type.label }}</td>
+            </tr>
+            <tr>
+                <th>Start Time</th>
+                <td>{{ peloton.startTime ? peloton.startTime|date('H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="table">
+       <thead>
+            <tr>
+                <th>Club</th>
+                <th>Full Name</th>
+                <th>Total</th>
+                <th>10</th>
+                <th>9</th>
+                <th>Action<th>
+            </tr>
+        </thead>
+        <tbody>
+        {# {% for participant in peloton.participants %}
+            <tr>
+            {% set foo = participant.archer.affiliations|reverse|first %}
+                <td>{{ foo.club.acronym }}</td>
+                <td>{{ participant.archer.fullname }}</td>
+                <td>{{ participant.points }}</td>
+                <td>{{ participant.numberoften }}</td>
+                <td>{{ participant.numberofnine }}</td>
+                <td><a href="{{ path('participant_edit', {'tournament' : peloton.tournament.id, 'id': participant.id}) }}">Modifier</a></td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %} #}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_tournament_show', {'id': peloton.tournament.id}) }}">back to list</a>
+
+{% if is_granted('ROLE_ADMIN') %}
+    <a href="{{ path('peloton_edit', {'tournament' : peloton.tournament.id, 'id': peloton.id}) }}">edit</a>
+
+    {{ include('peloton/_delete_form.html.twig') }}
+{% endif %}
+{% endblock %}

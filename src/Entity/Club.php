@@ -173,4 +173,9 @@ class Club
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->getAcronym() . ' - ' . $this->getName();
+    }
 }
