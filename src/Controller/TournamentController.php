@@ -26,6 +26,17 @@ class TournamentController extends AbstractController
         ]);
     }
 
+    #[Route('/calendar', name: 'app_tournament_calendar', methods: 'GET')]
+    public function calendar(TournamentRepository $tournamentRepository): Response
+    {
+        $result = $tournamentRepository->findBy(array(), array('startDate' => 'DESC'));
+
+        return $this->render('tournament/calendar.html.twig', [
+            'current_menu'  => 'calendar',
+            'tournaments' => $result
+        ]);
+    }
+
     #[Route('/new', name: 'app_tournament_new', methods: 'GET|POST')]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {

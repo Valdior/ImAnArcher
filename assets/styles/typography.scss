@@ -1,0 +1,15 @@
+// Variables
+// ==================
+// @import "~bootstrap/scss/_variables.scss";
+
+$font-family-sans-serif: "Roboto", "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+$font-family-monospace: "Montserrat", "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+.navbar-nav {
+    font-family: $font-family-monospace;
+    font-size: 18px;
+}
+
+.navbar-brand {
+    font-family: $font-family-monospace;
+}
