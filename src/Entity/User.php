@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -82,9 +84,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $defaultArc = null;
 
+    #[ORM\OneToMany(mappedBy: 'archer', targetEntity: Participant::class)]
+    private Collection $competitions;
+
     public function __construct()
     {
         $this->setStatus(self::STATUS_ACTIVE);
+        $this->competitions = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->getLastname() . ' ' . $this->getFirstname();
     }
 
     public static function getGenderList()
@@ -301,5 +312,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getFullName(): ?string
     {
         return $this->getLastname() . ' ' . $this->getFirstname();
+    }
+
+    /**
+     * @return Collection<int, Participant>
+     */
+    public function getCompetitions(): Collection
+    {
+        return $this->competitions;
+    }
+
+    public function addCompetition(Participant $competition): self
+    {
+        if (!$this->competitions->contains($competition)) {
+            $this->competitions->add($competition);
+            $competition->setArcher($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompetition(Participant $competition): self
+    {
+        if ($this->competitions->removeElement($competition)) {
+            // set the owning side to null (unless already changed)
+            if ($competition->getArcher() === $this) {
+                $competition->setArcher(null);
+            }
+        }
+
+        return $this;
     }
 }

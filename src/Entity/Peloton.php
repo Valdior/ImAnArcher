@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Enum\PelotonTypeEnum;
 use App\Repository\PelotonRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -27,6 +29,14 @@ class Peloton
     #[ORM\ManyToOne(inversedBy: 'pelotons')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Tournament $tournament = null;
+
+    #[ORM\OneToMany(mappedBy: 'peloton', targetEntity: Participant::class)]
+    private Collection $participants;
+
+    public function __construct()
+    {
+        $this->participants = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -77,6 +87,36 @@ class Peloton
     public function setTournament(?Tournament $tournament): self
     {
         $this->tournament = $tournament;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Participant>
+     */
+    public function getParticipants(): Collection
+    {
+        return $this->participants;
+    }
+
+    public function addParticipant(Participant $participant): self
+    {
+        if (!$this->participants->contains($participant)) {
+            $this->participants->add($participant);
+            $participant->setPeloton($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParticipant(Participant $participant): self
+    {
+        if ($this->participants->removeElement($participant)) {
+            // set the owning side to null (unless already changed)
+            if ($participant->getPeloton() === $this) {
+                $participant->setPeloton(null);
+            }
+        }
 
         return $this;
     }

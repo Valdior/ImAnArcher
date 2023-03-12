@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Participant{% endblock %}
+
+{% block body %}
+    <h1>Edit Participant</h1>
+
+    {{ include('layout/_form.html.twig') }}
+
+    <a href="{{ path('tournament_show', {'id': tournament.id}) }}">back to list</a>
+{% endblock %}

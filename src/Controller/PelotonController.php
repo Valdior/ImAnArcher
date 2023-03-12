@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Participant;
 use App\Entity\Peloton;
 use App\Entity\Tournament;
+use App\Form\ParticipantType;
 use App\Form\PelotonType;
+use App\Repository\ParticipantRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -82,31 +85,33 @@ class PelotonController extends AbstractController
         return $this->redirectToRoute('app_tournament_show', ['id' => $tournament->getId()]);
     }
 
-    // #[Route('/{id}/register', name: 'peloton_register', methods: 'DELETE')]
-    // public function register(Tournament $tournament, Peloton $peloton, Request $request): Response
-    // {
-    //     $participant = new Participant();
-    //     $form = $this->createForm(ParticipantType::class, $participant, array('user' => $this->getUser()));
-    //     $form->handleRequest($request);
+    #[Route('/{id}/register', name: 'peloton_register', methods: 'GET|POST')]
+    public function register(
+        Tournament $tournament,
+        Peloton $peloton,
+        Request $request,
+        EntityManagerInterface $entityRepository
+    ): Response {
+        $participant = new Participant();
+        $form = $this->createForm(ParticipantType::class, $participant, array('user' => $this->getUser()));
+        $form->handleRequest($request);
 
-    //     if ($form->isSubmitted() && $form->isValid()) {
-    //         $participant->setPeloton($peloton);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $participant->setPeloton($peloton);
 
-    //         if(!in_array('ROLE_ADMIN', $this->getUser()->getRoles()))
-    //             $participant->setArcher($this->getUser()->getArcher());
+            $entityRepository->persist($participant);
+            $entityRepository->flush();
 
-    //         $em = $this->getDoctrine()->getManager();
-    //         $em->persist($participant);
-    //         $em->flush();
+            // if(!in_array('ROLE_ADMIN', $this->getUser()->getRoles()))
+            //     $participant->setArcher($this->getUser()->getArcher());
+            return $this->redirectToRoute('app_tournament_show', ['id' => $tournament->getId()]);
+        }
 
-    //         return $this->redirectToRoute('tournament_show', ['id' => $tournament->getId()]);
-    //     }
-
-    //     return $this->render('participant/register.html.twig', [
-    //         'participant' => $participant,
-    //         'peloton' => $peloton,
-    //         'tournament' => $tournament,
-    //         'form' => $form->createView(),
-    //     ]);
-    // }
+        return $this->render('participant/register.html.twig', [
+            'participant' => $participant,
+            'peloton' => $peloton,
+            'tournament' => $tournament,
+            'form' => $form->createView(),
+        ]);
+    }
 }
