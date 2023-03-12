@@ -35,9 +35,11 @@
         <div class="col-10">
             <h4 class="text-uppercase"><a href="{{ path('app_tournament_show', {'id': tournament.id}) }}">{{ tournament.organizer.acronym }} - {{ tournament.organizer.name }}</a></h4>
             <ul class="list-inline">
-                <li class="list-inline-item badge bg-primary"><i class="fa fa-location-arrow" aria-hidden="true"></i> {{ tournament.type.name }}</li>
-                <li class="list-inline-item"><i class="fa fa-calendar-o" aria-hidden="true"></i> {{ tournament.startDate ? tournament.startDate|date('d-m-Y') : '' }}</li>
-                <li class="list-inline-item"><i class="fa fa-clock-o" aria-hidden="true"></i>{{ tournament.endDate ? tournament.endDate|date('d-m-Y') : '' }}</li>
+                <li class="list-inline-item badge bg-{% if tournament.type.value == 1 %}primary{% else %}success{% endif %}"><i class="fad fa-bow-arrow" aria-hidden="true"></i> {{ tournament.type.name }}</li>
+                <li class="list-inline-item"><i class="fad fa-calendar-alt" aria-hidden="true"></i> {{ tournament.startDate ? tournament.startDate|date('d-m-Y') : '' }}</li>
+                {% if tournament.startDate != tournament.endDate %}
+                <li class="list-inline-item"><i class="fad fa-calendar-alt" aria-hidden="true"></i> {{ tournament.endDate ? tournament.endDate|date('d-m-Y') : '' }}</li>
+                {% endif %}
             </ul>
         </div>
     </div>

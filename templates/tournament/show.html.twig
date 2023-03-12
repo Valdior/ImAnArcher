@@ -15,7 +15,7 @@
                 {% for peloton in tournament.pelotons %}
                 <li class="list-group-item">
                     <span class='badge bg-secondary'>{{ peloton.type.label }}</span>
-                    {{ peloton.starttime|date('d-m-Y H:i') }}
+                    <i class="fad fa-clock" aria-hidden="true"></i> {{ peloton.starttime|date('d-m-Y H:i') }}
                     <a href='{{ path('peloton_register', {'tournament': tournament.id, 'id' : peloton.id}) }}' class='btn btn-primary'>
                         S'inscrire
                     </a>
