@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Peloton{% endblock %}
+{% block title %}New Platoon{% endblock %}
 
 {% block body %}
-    <h1>Create new Peloton</h1>
+    <h1>Create new Platoon</h1>
 
-    {{ include('peloton/_form.html.twig') }}
+    {{ include('platoon/_form.html.twig') }}
 
     <a href="{{ path('app_tournament_show', {'id': tournament.id}) }}">back to list</a>
 {% endblock %}

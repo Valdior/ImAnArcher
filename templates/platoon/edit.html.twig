@@ -1,0 +1,14 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Platoon{% endblock %}
+
+{% block body %}
+    <h1>Edit Platoon</h1>
+
+    {{ include('platoon/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_tournament_show', {'id': platoon.tournament.id}) }}">back to list</a>
+
+    {{ include('platoon/_delete_form.html.twig') }}
+{% endblock %}

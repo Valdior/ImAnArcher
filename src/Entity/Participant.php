@@ -4,8 +4,13 @@ namespace App\Entity;
 
 use App\Repository\ParticipantRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: ParticipantRepository::class)]
+#[UniqueEntity(
+    fields: ['archer', 'platoon'],
+    message: 'You are already registered in this platoon.',
+)]
 class Participant
 {
     #[ORM\Id]
@@ -38,7 +43,7 @@ class Participant
 
     #[ORM\ManyToOne(inversedBy: 'participants')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Peloton $peloton = null;
+    private ?Platoon $platoon = null;
 
     public function __construct()
     {
@@ -136,14 +141,14 @@ class Participant
         return $this;
     }
 
-    public function getPeloton(): ?Peloton
+    public function getPlatoon(): ?Platoon
     {
-        return $this->peloton;
+        return $this->platoon;
     }
 
-    public function setPeloton(?Peloton $peloton): self
+    public function setPlatoon(?Platoon $platoon): self
     {
-        $this->peloton = $peloton;
+        $this->platoon = $platoon;
 
         return $this;
     }

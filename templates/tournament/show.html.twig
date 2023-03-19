@@ -12,11 +12,11 @@
             <h3>Où et quand ?</h3>
             {% if date(tournament.endDate) > date("now") or is_granted('ROLE_ADMIN') %}
             <ol class="list-group list-group-flush">
-                {% for peloton in tournament.pelotons %}
+                {% for platoon in tournament.platoons %}
                 <li class="list-group-item">
-                    <span class='badge bg-secondary'>{{ peloton.type.label }}</span>
-                    <i class="fad fa-clock" aria-hidden="true"></i> {{ peloton.starttime|date('d-m-Y H:i') }}
-                    <a href='{{ path('peloton_register', {'tournament': tournament.id, 'id' : peloton.id}) }}' class='btn btn-primary'>
+                    <span class='badge bg-secondary'>{{ platoon.type.label }}</span>
+                    <i class="fad fa-clock" aria-hidden="true"></i> {{ platoon.starttime|date('d-m-Y H:i') }}
+                    <a href='{{ path('platoon_register', {'tournament': tournament.id, 'id' : platoon.id}) }}' class='btn btn-primary'>
                         S'inscrire
                     </a>
                 </li>

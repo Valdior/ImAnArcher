@@ -29,12 +29,12 @@ class Tournament
     #[ORM\ManyToOne(inversedBy: 'tournaments')]
     private ?Club $organizer = null;
 
-    #[ORM\OneToMany(mappedBy: 'tournament', targetEntity: Peloton::class, orphanRemoval: true)]
-    private Collection $pelotons;
+    #[ORM\OneToMany(mappedBy: 'tournament', targetEntity: Platoon::class, orphanRemoval: true)]
+    private Collection $platoons;
 
     public function __construct()
     {
-        $this->pelotons = new ArrayCollection();
+        $this->platoons = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -79,29 +79,29 @@ class Tournament
     }
 
     /**
-     * @return Collection<int, Peloton>
+     * @return Collection<int, Platoon>
      */
-    public function getPelotons(): Collection
+    public function getPlatoons(): Collection
     {
-        return $this->pelotons;
+        return $this->platoons;
     }
 
-    public function addPeloton(Peloton $peloton): self
+    public function addPlatoon(Platoon $platoon): self
     {
-        if (!$this->pelotons->contains($peloton)) {
-            $this->pelotons->add($peloton);
-            $peloton->setTournament($this);
+        if (!$this->platoons->contains($platoon)) {
+            $this->platoons->add($platoon);
+            $platoon->setTournament($this);
         }
 
         return $this;
     }
 
-    public function removePeloton(Peloton $peloton): self
+    public function removePlatoon(Platoon $platoon): self
     {
-        if ($this->pelotons->removeElement($peloton)) {
+        if ($this->platoons->removeElement($platoon)) {
             // set the owning side to null (unless already changed)
-            if ($peloton->getTournament() === $this) {
-                $peloton->setTournament(null);
+            if ($platoon->getTournament() === $this) {
+                $platoon->setTournament(null);
             }
         }
 

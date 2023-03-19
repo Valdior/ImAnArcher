@@ -1,10 +1,10 @@
 
 {% extends 'base.html.twig' %}
 
-{% block title %}Peloton index{% endblock %}
+{% block title %}Platoon index{% endblock %}
 
 {% block body %}
-    <h1>Peloton index</h1>
+    <h1>Platoon index</h1>
 
     <table class="table">
         <thead>
@@ -17,15 +17,15 @@
             </tr>
         </thead>
         <tbody>
-        {% for peloton in pelotons %}
+        {% for platoon in platoons %}
             <tr>
-                <td>{{ peloton.id }}</td>
-                <td>{{ peloton.maxParticipant }}</td>
-                <td>{{ peloton.type }}</td>
-                <td>{{ peloton.startTime ? peloton.startTime|date('H:i:s') : '' }}</td>
+                <td>{{ platoon.id }}</td>
+                <td>{{ platoon.maxParticipant }}</td>
+                <td>{{ platoon.type }}</td>
+                <td>{{ platoon.startTime ? platoon.startTime|date('H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('peloton_show', {'id': peloton.id}) }}">show</a>
-                    <a href="{{ path('peloton_edit', {'id': peloton.id}) }}">edit</a>
+                    <a href="{{ path('platoon_show', {'id': platoon.id}) }}">show</a>
+                    <a href="{{ path('platoon_edit', {'id': platoon.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -36,5 +36,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('peloton_new') }}">Create new</a>
+    <a href="{{ path('platoon_new') }}">Create new</a>
 {% endblock %}

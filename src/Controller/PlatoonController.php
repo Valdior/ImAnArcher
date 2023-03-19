@@ -3,10 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Participant;
-use App\Entity\Peloton;
+use App\Entity\Platoon;
 use App\Entity\Tournament;
 use App\Form\ParticipantType;
-use App\Form\PelotonType;
+use App\Form\PlatoonType;
 use App\Repository\ParticipantRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,81 +14,81 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('//tournament/{tournament}/peloton')]
-class PelotonController extends AbstractController
+#[Route('//tournament/{tournament}/platoon')]
+class PlatoonController extends AbstractController
 {
-    #[Route('/new', name: 'peloton_new')]
+    #[Route('/new', name: 'platoon_new')]
     public function new(Tournament $tournament, Request $request, EntityManagerInterface $entityRepository): Response
     {
-        $peloton = new Peloton();
-        $form = $this->createForm(PelotonType::class, $peloton);
+        $platoon = new Platoon();
+        $form = $this->createForm(PlatoonType::class, $platoon);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $peloton->setTournament($tournament);
-            $entityRepository->persist($peloton);
+            $platoon->setTournament($tournament);
+            $entityRepository->persist($platoon);
             $entityRepository->flush();
 
             return $this->redirectToRoute('app_tournament_show', ['id' => $tournament->getId()]);
         }
 
-        return $this->render('peloton/new.html.twig', [
-            'peloton' => $peloton,
+        return $this->render('platoon/new.html.twig', [
+            'platoon' => $platoon,
             'tournament' => $tournament,
             'form' => $form->createView(),
         ]);
     }
 
-    #[Route('/{id}', name: 'peloton_show', methods: 'GET')]
-    public function show(Peloton $peloton): Response
+    #[Route('/{id}', name: 'platoon_show', methods: 'GET')]
+    public function show(Platoon $platoon): Response
     {
-        return $this->render('peloton/show.html.twig', ['peloton' => $peloton]);
+        return $this->render('platoon/show.html.twig', ['platoon' => $platoon]);
     }
 
-    #[Route('/{id}/edit', name: 'peloton_edit', methods: 'GET|POST')]
+    #[Route('/{id}/edit', name: 'platoon_edit', methods: 'GET|POST')]
     public function edit(
         Request $request,
         Tournament $tournament,
-        Peloton $peloton,
+        Platoon $platoon,
         EntityManagerInterface $entityRepository
     ): Response {
-        $form = $this->createForm(PelotonType::class, $peloton);
+        $form = $this->createForm(PlatoonType::class, $platoon);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityRepository->flush();
 
-            return $this->redirectToRoute('peloton_show', [
+            return $this->redirectToRoute('platoon_show', [
                 'tournament' => $tournament->getId(),
-                'id' => $peloton->getId()
+                'id' => $platoon->getId()
             ]);
         }
 
-        return $this->render('peloton/edit.html.twig', [
-            'peloton' => $peloton,
+        return $this->render('platoon/edit.html.twig', [
+            'platoon' => $platoon,
             'form' => $form->createView(),
         ]);
     }
 
-    #[Route('/{id}', name: 'peloton_delete', methods: 'POST|DELETE')]
+    #[Route('/{id}', name: 'platoon_delete', methods: 'POST|DELETE')]
     public function delete(
         Request $request,
         Tournament $tournament,
-        Peloton $peloton,
+        Platoon $platoon,
         EntityManagerInterface $entityRepository
     ): Response {
-        if ($this->isCsrfTokenValid('delete' . $peloton->getId(), $request->request->get('_token'))) {
-            $entityRepository->remove($peloton);
+        if ($this->isCsrfTokenValid('delete' . $platoon->getId(), $request->request->get('_token'))) {
+            $entityRepository->remove($platoon);
             $entityRepository->flush();
         }
 
         return $this->redirectToRoute('app_tournament_show', ['id' => $tournament->getId()]);
     }
 
-    #[Route('/{id}/register', name: 'peloton_register', methods: 'GET|POST')]
+    #[Route('/{id}/register', name: 'platoon_register', methods: 'GET|POST')]
     public function register(
         Tournament $tournament,
-        Peloton $peloton,
+        Platoon $platoon,
         Request $request,
         EntityManagerInterface $entityRepository
     ): Response {
@@ -97,7 +97,7 @@ class PelotonController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $participant->setPeloton($peloton);
+            $participant->setPlatoon($platoon);
 
             $entityRepository->persist($participant);
             $entityRepository->flush();
@@ -109,7 +109,7 @@ class PelotonController extends AbstractController
 
         return $this->render('participant/register.html.twig', [
             'participant' => $participant,
-            'peloton' => $peloton,
+            'platoon' => $platoon,
             'tournament' => $tournament,
             'form' => $form->createView(),
         ]);

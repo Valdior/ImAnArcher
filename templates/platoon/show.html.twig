@@ -1,23 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Peloton{% endblock %}
+{% block title %}Platoon{% endblock %}
 
 {% block body %}
-    <h1>Peloton</h1>
+    <h1>Platoon</h1>
 
     <table class="table">
         <tbody>
             <tr>
                 <th>Max Participant</th>
-                <td>{{ peloton.maxParticipants }}</td>
+                <td>{{ platoon.maxParticipants }}</td>
             </tr>
             <tr>
                 <th>Type</th>
-                <td>{{ peloton.type.label }}</td>
+                <td>{{ platoon.type.label }}</td>
             </tr>
             <tr>
                 <th>Start Time</th>
-                <td>{{ peloton.startTime ? peloton.startTime|date('H:i:s') : '' }}</td>
+                <td>{{ platoon.startTime ? platoon.startTime|date('H:i:s') : '' }}</td>
             </tr>
         </tbody>
     </table>
@@ -34,7 +34,7 @@
             </tr>
         </thead>
         <tbody>
-        {# {% for participant in peloton.participants %}
+        {# {% for participant in platoon.participants %}
             <tr>
             {% set foo = participant.archer.affiliations|reverse|first %}
                 <td>{{ foo.club.acronym }}</td>
@@ -42,7 +42,7 @@
                 <td>{{ participant.points }}</td>
                 <td>{{ participant.numberoften }}</td>
                 <td>{{ participant.numberofnine }}</td>
-                <td><a href="{{ path('participant_edit', {'tournament' : peloton.tournament.id, 'id': participant.id}) }}">Modifier</a></td>
+                <td><a href="{{ path('participant_edit', {'tournament' : platoon.tournament.id, 'id': participant.id}) }}">Modifier</a></td>
             </tr>
         {% else %}
             <tr>
@@ -52,11 +52,11 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_tournament_show', {'id': peloton.tournament.id}) }}">back to list</a>
+    <a href="{{ path('app_tournament_show', {'id': platoon.tournament.id}) }}">back to list</a>
 
 {% if is_granted('ROLE_ADMIN') %}
-    <a href="{{ path('peloton_edit', {'tournament' : peloton.tournament.id, 'id': peloton.id}) }}">edit</a>
+    <a href="{{ path('platoon_edit', {'tournament' : platoon.tournament.id, 'id': platoon.id}) }}">edit</a>
 
-    {{ include('peloton/_delete_form.html.twig') }}
+    {{ include('platoon/_delete_form.html.twig') }}
 {% endif %}
 {% endblock %}

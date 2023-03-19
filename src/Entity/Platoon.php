@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Enum\PelotonTypeEnum;
-use App\Repository\PelotonRepository;
+use App\Enum\PlatoonTypeEnum;
+use App\Repository\PlatoonRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: PelotonRepository::class)]
-class Peloton
+#[ORM\Entity(repositoryClass: PlatoonRepository::class)]
+class Platoon
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -20,17 +20,17 @@ class Peloton
     #[ORM\Column]
     private ?int $maxParticipants = null;
 
-    #[ORM\Column(type: Types::INTEGER, enumType: PelotonTypeEnum::class)]
-    private ?PelotonTypeEnum $type = null;
+    #[ORM\Column(type: Types::INTEGER, enumType: PlatoonTypeEnum::class)]
+    private ?PlatoonTypeEnum $type = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $startTime = null;
 
-    #[ORM\ManyToOne(inversedBy: 'pelotons')]
+    #[ORM\ManyToOne(inversedBy: 'platoons')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Tournament $tournament = null;
 
-    #[ORM\OneToMany(mappedBy: 'peloton', targetEntity: Participant::class)]
+    #[ORM\OneToMany(mappedBy: 'platoon', targetEntity: Participant::class)]
     private Collection $participants;
 
     public function __construct()
@@ -55,12 +55,12 @@ class Peloton
         return $this;
     }
 
-    public function getType(): PelotonTypeEnum
+    public function getType(): PlatoonTypeEnum
     {
         return $this->type;
     }
 
-    public function setType(PelotonTypeEnum $type): self
+    public function setType(PlatoonTypeEnum $type): self
     {
         $this->type = $type;
 
@@ -103,7 +103,7 @@ class Peloton
     {
         if (!$this->participants->contains($participant)) {
             $this->participants->add($participant);
-            $participant->setPeloton($this);
+            $participant->setPlatoon($this);
         }
 
         return $this;
@@ -113,8 +113,8 @@ class Peloton
     {
         if ($this->participants->removeElement($participant)) {
             // set the owning side to null (unless already changed)
-            if ($participant->getPeloton() === $this) {
-                $participant->setPeloton(null);
+            if ($participant->getPlatoon() === $this) {
+                $participant->setPlatoon(null);
             }
         }
 

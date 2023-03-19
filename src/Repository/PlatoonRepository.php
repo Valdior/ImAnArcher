@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\Peloton;
+use App\Entity\Platoon;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Peloton>
+ * @extends ServiceEntityRepository<Platoon>
  *
- * @method Peloton|null find($id, $lockMode = null, $lockVersion = null)
- * @method Peloton|null findOneBy(array $criteria, array $orderBy = null)
- * @method Peloton[]    findAll()
- * @method Peloton[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Platoon|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Platoon|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Platoon[]    findAll()
+ * @method Platoon[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class PelotonRepository extends ServiceEntityRepository
+class PlatoonRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Peloton::class);
+        parent::__construct($registry, Platoon::class);
     }
 
-    public function save(Peloton $entity, bool $flush = false): void
+    public function save(Platoon $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class PelotonRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Peloton $entity, bool $flush = false): void
+    public function remove(Platoon $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class PelotonRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return Peloton[] Returns an array of Peloton objects
+//     * @return Platoon[] Returns an array of Platoon objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class PelotonRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Peloton
+//    public function findOneBySomeField($value): ?Platoon
 //    {
 //        return $this->createQueryBuilder('p')
 //            ->andWhere('p.exampleField = :val')
