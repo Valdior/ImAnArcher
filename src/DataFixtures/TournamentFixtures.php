@@ -18,6 +18,7 @@ class TournamentFixtures extends Fixture implements DependentFixtureInterface
     public const TOURN_LIE = "toun-lie";
     public const TOURN_TEL = "toun-tel";
     public const TOURN_ITW = "toun-itw";
+    public const TOURN_ITW_OUT = "toun-itw-out";
     public const TOURN_HUY = "toun-huy";
 
     public const TOURN_FBG = "tourn-fbg";
@@ -151,6 +152,15 @@ class TournamentFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($tournament);
 
         $this->addReference(self::TOURN_GSR, $tournament);
+
+        $tournament = new Tournament();
+        $tournament->setStartDate(new \DateTime("05/14/2023"));
+        $tournament->setEndDate(new \DateTime("05/14/2023"));
+        $tournament->setType(TournamentTypeEnum::Outdoor);
+        $tournament->setOrganizer($this->getReference(ClubFixtures::CLUB_ITW));
+        $manager->persist($tournament);
+
+        $this->addReference(self::TOURN_ITW_OUT, $tournament);
 
         $manager->flush();
     }

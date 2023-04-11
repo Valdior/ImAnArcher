@@ -28,7 +28,7 @@ class League
     #[ORM\Column(length: 10)]
     private ?string $acronym = null;
 
-    #[ORM\OneToMany(mappedBy: 'League', targetEntity: Region::class)]
+    #[ORM\OneToMany(mappedBy: 'league', targetEntity: Region::class)]
     private Collection $regions;
 
     public function __construct()

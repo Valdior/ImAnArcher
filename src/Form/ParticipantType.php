@@ -2,8 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\ArcherCategory;
 use App\Entity\Participant;
 use App\Entity\User;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,16 +18,30 @@ class ParticipantType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $user = $options['user'];
-        $roles = $user->getRoles();
-
-        if (in_array('ROLE_ADMIN', $roles)) {
-            $builder->add('archer', EntityType::class, [
-                'class' => User::class,
-            ]);
-        }
 
         $builder
-            ->add('category')
+            ->add('archer', EntityType::class, array(
+                'placeholder' => 'Choissisez l\'archer',
+                'class' => User::class,
+                'disabled' => $options['disabled_archer'],
+                'data' => $user,
+                'attr' => ['data-select' => 'true'],
+                'required' => true
+            ))
+            ->add('category', EntityType::class, [
+                'class'  => ArcherCategory::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->orderBy('u.minimumAge', 'ASC');
+                },
+                'group_by' => function ($choice, $key, $value) {
+                    if (strpos($choice, 'W') !== false) {
+                        return 'Woman';
+                    } else {
+                        return 'Men';
+                    }
+                },
+            ])
         ;
 
         $builder->addEventListener(
@@ -57,7 +73,12 @@ class ParticipantType extends AbstractType
             'csrf_protection' => true,
             'csrf_field_name' => '_token',
             'csrf_token_id'   => 'participant_item',
-            'user'  => User::class
+            'user'  => User::class,
+            'disabled_archer'  => true,
+            'is_already_registered' => false,
         ]);
+
+        $resolver->setAllowedTypes('disabled_archer', 'bool');
+        $resolver->setAllowedTypes('is_already_registered', 'bool');
     }
 }

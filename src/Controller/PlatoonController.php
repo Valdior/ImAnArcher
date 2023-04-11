@@ -2,19 +2,16 @@
 
 namespace App\Controller;
 
-use App\Entity\Participant;
 use App\Entity\Platoon;
 use App\Entity\Tournament;
-use App\Form\ParticipantType;
 use App\Form\PlatoonType;
-use App\Repository\ParticipantRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('//tournament/{tournament}/platoon')]
+#[Route('/tournament/{tournament}/platoon')]
 class PlatoonController extends AbstractController
 {
     #[Route('/new', name: 'platoon_new')]
@@ -83,35 +80,5 @@ class PlatoonController extends AbstractController
         }
 
         return $this->redirectToRoute('app_tournament_show', ['id' => $tournament->getId()]);
-    }
-
-    #[Route('/{id}/register', name: 'platoon_register', methods: 'GET|POST')]
-    public function register(
-        Tournament $tournament,
-        Platoon $platoon,
-        Request $request,
-        EntityManagerInterface $entityRepository
-    ): Response {
-        $participant = new Participant();
-        $form = $this->createForm(ParticipantType::class, $participant, array('user' => $this->getUser()));
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $participant->setPlatoon($platoon);
-
-            $entityRepository->persist($participant);
-            $entityRepository->flush();
-
-            // if(!in_array('ROLE_ADMIN', $this->getUser()->getRoles()))
-            //     $participant->setArcher($this->getUser()->getArcher());
-            return $this->redirectToRoute('app_tournament_show', ['id' => $tournament->getId()]);
-        }
-
-        return $this->render('participant/register.html.twig', [
-            'participant' => $participant,
-            'platoon' => $platoon,
-            'tournament' => $tournament,
-            'form' => $form->createView(),
-        ]);
     }
 }

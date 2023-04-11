@@ -29,9 +29,6 @@ class ProfileController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/profile/{username}", name="profile_edit")
-     */
     #[Route('/profile/{username}', name: 'app_profile_edit', methods: ['GET'])]
     public function edit(
         Request $request,

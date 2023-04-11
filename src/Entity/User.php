@@ -58,7 +58,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private ?bool $isVerified = false;
 
-    #[ORM\Column(type: 'string')]
+    #[ORM\Column(type: 'string', length: 100, unique: true)]
     #[Assert\NotBlank()]
     #[Assert\Email(message: "The email '{{ value }}' is not a valid email.")]
     private ?string $email = null;

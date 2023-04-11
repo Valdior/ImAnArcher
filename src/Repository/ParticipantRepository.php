@@ -3,6 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Participant;
+use App\Entity\Platoon;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -37,6 +39,42 @@ class ParticipantRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    /**
+     * @var Participant
+     * @return Participant Find the data of a participant according to the archer and the platoon
+     */
+    public function getParticipant(User $archer, Platoon $platoon): ?Participant
+    {
+        $result = $this->createQueryBuilder('p')
+                    ->andWhere('p.archer = :archer')
+                        ->setParameter('archer', $archer)
+                    ->andWhere('p.platoon = :platoon')
+                        ->setParameter('platoon', $platoon)
+                    ->getQuery()
+                    ->getOneOrNullResult()
+                ;
+
+        return $result;
+    }
+
+    /**
+     * @var boolean
+     * @return boolean Checks whether the participant is already registered in the platoon
+     */
+    public function isAlreadyRegistered(User $archer, Platoon $platoon): bool
+    {
+        $result = $this->createQueryBuilder('p')
+                    ->andWhere('p.archer = :archer')
+                        ->setParameter('archer', $archer)
+                    ->andWhere('p.platoon = :platoon')
+                        ->setParameter('platoon', $platoon)
+                    ->getQuery()
+                    ->getScalarResult()
+                ;
+
+        return count($result) > 0;
     }
 
 //    /**
