@@ -1,0 +1,20 @@
+<li class="list-group-item">
+    <span class='badge bg-secondary'>{{ platoon.type.label }}</span>
+    <i class="fad fa-clock" aria-hidden="true"></i> {{ platoon.starttime|date('d-m-Y H:i') }}
+
+    {% for p in platoon.participants %}
+        <a  class='btn btn-success btn-sm'>Déjà inscrit pour cette session</a>
+    {% else %}
+        <a href='{{ path('participant_register', {'tournament': tournament.id, 'id' : platoon.id}) }}' class='btn btn-primary btn-sm'>
+            S'inscrire
+        </a>
+    {% endfor %}
+    {% if is_granted('ROLE_USER') %}
+    
+    {# {% if not isAlreadyRegistered %}
+    
+    {% else %}
+    
+    <a href="{{ path('participant_unregister', {'tournament': tournament.id, 'id' : peloton.id}) }}"  class="btn btn-warning">Se désinscrire</a> #}
+    {% endif %}
+</li>

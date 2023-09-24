@@ -10,26 +10,16 @@
     <div class='row'>
         <section class='col-6'>
             <h3>Où et quand ?</h3>
-            {% if (is_granted('ROLE_USER') and date(tournament.startDate) > date("now"))
-                or is_granted('ROLE_ADMIN') %}
+            {{ include('layout/message.html.twig') }}
+            {# {% if date(tournament.startDate) > date("now") or is_granted('ROLE_ADMIN') %} #}
             <ol class="list-group list-group-flush">
                 {% for platoon in tournament.platoons %}
-                <li class="list-group-item">
-                    <span class='badge bg-secondary'>{{ platoon.type.label }}</span>
-                    <i class="fad fa-clock" aria-hidden="true"></i> {{ platoon.starttime|date('d-m-Y H:i') }}
-                    {# {% if not isAlreadyRegistered %}
-                    <a href='{{ path('participant_register', {'tournament': tournament.id, 'id' : platoon.id}) }}' class='btn btn-primary'>
-                        S'inscrire
-                    </a>
-                    {% else %}
-                    <a href="{{ path('participant_unregister', {'tournament': tournament.id, 'id' : peloton.id}) }}"  class="btn btn-warning">Se désinscrire</a>
-                    {% endif %} #}
-                </li>
+                {{ include('platoon/_show.html.twig') }}
                 {% else %}
                 <li class="list-group-item">no records found</li>
                 {% endfor %}
             </ol>
-            {% endif %}
+            {# {% endif %} #}
         <section>
     </div>
 
@@ -38,7 +28,7 @@
     {# {{ render(controller('App\\Controller\\TournamentController::ranking', {'id': tournament.id})) }} #}
     {% endif %}
 
-    <a href="{{ path('app_tournament') }}">back to list</a>
+    <a href="{{ path('app_tournament_calendar') }}">back to list</a>
 {% if is_granted('ROLE_ADMIN') %}
     <a href="{{ path('app_tournament_edit', {'id': tournament.id}) }}">edit</a>
 

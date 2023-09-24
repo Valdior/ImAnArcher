@@ -5,6 +5,19 @@
             "driver": "SQLite",
             "name": "dev",
             "database": "${workspaceFolder:ImAnArcher}/var/dev-data.db"
+        },
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "driver": "MySQL",
+            "name": "test",
+            "database": "testeapplicationur",
+            "username": "root",
+            "connectString": "mysql://root:@127.0.0.1:3306/testeapplicationur?serverVersion=5.7&charset=utf8mb4"
         }
     ]
 }
