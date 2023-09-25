@@ -71,9 +71,7 @@ class TournamentController extends AbstractController
         if ($this->security->isGranted('IS_AUTHENTICATED')) {
             $tournament = $er->findAllDatas($id, $this->getUser());
             //dump($tournament);
-        }
-        else
-        {
+        } else {
             $tournament = $er->findOneById($id);
         }
 
