@@ -42,7 +42,7 @@ class Participant
     private ?bool $isForfeited = null;
 
     #[ORM\ManyToOne(inversedBy: 'competitions')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true, onDelete: "SET NULL")]
     private ?User $archer = null;
 
     #[ORM\ManyToOne]
