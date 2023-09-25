@@ -165,11 +165,11 @@
                                         <label style="font-weight:bold;">{{ 'form.user.delete' | trans }}</label>
                                     </div>
                                     <div class="col-md-8 col-6">
-                                        {# <form method="post" action="{{ path('user_delete', {'username': user.username}) }}" onsubmit="return confirm('Sûr de sûr ?');">
+                                        <form method="post" action="{{ path('security_delete_account', {'id': user.id}) }}" onsubmit="return confirm('Sûr de sûr ?');">
                                             <input type="hidden" name="_method" value="DELETE">
                                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
                                             <button class="btn btn-outline-danger"><i class="fad fa-trash-alt"></i> {{ 'form.user.delete' | trans }}</button>
-                                        </form> #}
+                                        </form>
                                     </div>
                                 </div>
                             </div>

@@ -84,7 +84,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $defaultArc = null;
 
-    #[ORM\OneToMany(mappedBy: 'archer', targetEntity: Participant::class)]
+    #[ORM\OneToMany(mappedBy: 'archer', targetEntity: Participant::class, cascade: ["persist", "remove"])]
     private Collection $competitions;
 
     public function __construct()
@@ -319,6 +319,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getCompetitions(): Collection
     {
+        return $this->competitions;
+    }
+
+    /**
+     * @return Collection<int, Participant>
+     */
+    public function setCompetitions($participants): Collection
+    {
+        $this->competitions = $participants ?? new ArrayCollection();
         return $this->competitions;
     }
 
