@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Tournament;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -37,6 +39,20 @@ class TournamentRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function findAllDatas(int $id, User $user): object
+    {
+        return $this->createQueryBuilder('t')
+                    ->leftJoin('t.platoons', 'pla')
+                    ->leftJoin('pla.participants', 'p', Join::WITH, 'p.archer = :archer')
+                        ->setParameter('archer', $user->getId())
+                    ->andWhere('t.id = :val')
+                        ->setParameter('val', $id)
+                    ->select('t', 'pla', 'p')
+                    ->getQuery()
+                    ->getOneOrNullResult()
+                ;
     }
 
 //    /**

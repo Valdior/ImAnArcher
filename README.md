@@ -4,11 +4,11 @@
 
 Dépôt pour un site concernant l'archerie. L'objectif est de rendre le projet Open Source afin que tout le monde puissent participer à l'élaboration du site et à son évolution.
 
-Durant la phase de lancement, les fonctionnalités seront moindre. Avec un système pour les archers ou les futurs archers d'encoder leurs points pour un suvi des résultats.
+Durant la phase de lancement, les fonctionnalitées seront moindre. Avec un système pour les archers ou les futurs archers d'encoder leurs points pour un suvi des résultats.
 
-Dans une prochaine étape, on pourrai concevoir une système pour s'enregistrer directement à une compétition auprès du club. Apportant un contenu plus dynamique, avec une gestion des places et des blasons encore disponible pour un peloton.
+Dans une prochaine étape, on pourrait concevoir un système pour s'enregistrer directement à une compétition auprès du club. Apportant un contenu plus dynamique, avec une gestion des places et des blasons encore disponible pour un peloton.
 
-## Environnemenet de développement
+## Environnement de développement
 
 ### Pré-requis
 
@@ -50,7 +50,7 @@ git flow feature start *branche name*
 * [ ] Configuration avancé
 * [ ] Création des endpoints pour les entités
 
-## Idées d'amélioration
+## Idées d'améliorations
 
 * Faire au plus simple pour commencer
 * Ne pas se laisse emporter avec de nouvelles idées

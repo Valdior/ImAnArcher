@@ -7,6 +7,7 @@ use App\Form\TournamentType;
 use App\Repository\TournamentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,6 +16,11 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/tournament')]
 class TournamentController extends AbstractController
 {
+    public function __construct(
+        private Security $security,
+    ) {
+    }
+
     #[Route('/', name: 'app_tournament', methods: 'GET')]
     public function index(TournamentRepository $tournamentRepository): Response
     {
@@ -22,6 +28,17 @@ class TournamentController extends AbstractController
 
         return $this->render('tournament/index.html.twig', [
             'current_menu'  => 'tournament',
+            'tournaments' => $result
+        ]);
+    }
+
+    #[Route('/calendar', name: 'app_tournament_calendar', methods: 'GET')]
+    public function calendar(TournamentRepository $tournamentRepository): Response
+    {
+        $result = $tournamentRepository->findBy(array(), array('startDate' => 'DESC'));
+
+        return $this->render('tournament/calendar.html.twig', [
+            'current_menu'  => 'calendar',
             'tournaments' => $result
         ]);
     }
@@ -49,8 +66,15 @@ class TournamentController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_tournament_show', methods: 'GET')]
-    public function show(Tournament $tournament): Response
+    public function show(int $id, TournamentRepository $er): Response
     {
+        if ($this->security->isGranted('IS_AUTHENTICATED')) {
+            $tournament = $er->findAllDatas($id, $this->getUser());
+            //dump($tournament);
+        } else {
+            $tournament = $er->findOneById($id);
+        }
+
         return $this->render('tournament/show.html.twig', [
             'current_menu' => 'tournament',
             'tournament' => $tournament

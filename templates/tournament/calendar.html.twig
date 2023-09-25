@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Calendar{% endblock %}
+
+{% block  stylesheets %}
+{{ parent() }}
+<style>
+.row-striped:nth-of-type(odd){
+  background-color: #efefef;
+  border-left: 4px #000000 solid;
+}
+
+.row-striped:nth-of-type(even){
+  background-color: #ffffff;
+  border-left: 4px #efefef solid;
+}
+
+.row-striped {
+    padding: 5px 0;
+}
+</style>
+ {% endblock %}
+
+{% block body %}
+    <div class="row p-4">
+        <h1>Calendar for this season</h1>
+    </div>
+
+    {% for tournament in tournaments %}
+    <div class="row row-striped">
+        <div class="col-1 text-right">
+            <h2 ><span class="badge bg-secondary">{{ tournament.startDate ? tournament.startDate|date('d') : '' }}</span></h2>
+            <h3>{{ tournament.startDate ? tournament.startDate|date('M') : '' }}</h3>
+        </div>
+        <div class="col-10">
+            <h4 class="text-uppercase"><a href="{{ path('app_tournament_show', {'id': tournament.id}) }}">{{ tournament.organizer.acronym }} - {{ tournament.organizer.name }}</a></h4>
+            <ul class="list-inline">
+                <li class="list-inline-item badge bg-{% if tournament.type.value == 1 %}primary{% else %}success{% endif %}">{{ tournament.type.name }}</li>
+                <li class="list-inline-item badge bg-info" data-toggle="tooltip" data-placement="bottom" title="{{ tournament.platoons | length }} platoons"><i class="fad fa-bow-arrow" aria-hidden="true"></i> {{ tournament.platoons | length }}</li>
+                <li class="list-inline-item"><i class="fad fa-calendar-alt" aria-hidden="true"></i> {{ tournament.startDate ? tournament.startDate|date('d-m-Y') : '' }}</li>
+                {% if tournament.startDate != tournament.endDate %}
+                <li class="list-inline-item"><i class="fad fa-calendar-alt" aria-hidden="true"></i> {{ tournament.endDate ? tournament.endDate|date('d-m-Y') : '' }}</li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+    {% else %}
+    <div colspan="5">no records found</div>
+    {% endfor %}
+{% if is_granted('ROLE_ADMIN') %}
+    <a href="{{ path('app_tournament_new') }}">Create new</a>
+{% endif %}
+{% endblock %}

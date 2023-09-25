@@ -192,7 +192,7 @@
         {# {% endif %} #}
         <div class="btn-group" role="toolbar" aria-label="Toolbar with button groups">
             <a class="btn btn-primary" href="{{ path('app_forgot_password_request') }}"><i class="fad fa-key"></i> {{ 'form.profil.button.change_password' | trans }}</a>
-            <a class="btn btn-info" href="{{ path('profile_edit', {'username': user.username}) }}"><i class="fad fa-user-edit"></i> {{ 'form.profil.button.edit_profil' | trans }}</a>
+            <a class="btn btn-info" href="{{ path('app_profile_edit', {'username': user.username}) }}"><i class="fad fa-user-edit"></i> {{ 'form.profil.button.edit_profil' | trans }}</a>
             {# <a class="btn btn-secondary" href="{{ path('archer_affiliation', {'username': user.username}) }}"><i class="fad fa-bow-arrow"></i> {{ 'form.profil.button.transfer_request' | trans }}</a> #}
         </div>
     </div>

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Tournament{% endblock %}
+
+{% block body %}
+    <h1>Register new participant</h1>
+
+    {{ include('layout/_form.html.twig') }}
+
+    <a href="{{ path('app_tournament_show', {'id': platoon.tournament.id}) }}">back to list</a>
+{% endblock %}

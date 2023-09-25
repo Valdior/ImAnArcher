@@ -2,7 +2,7 @@
 
 namespace App\Enum;
 
-enum PelotonTypeEnum: int
+enum PlatoonTypeEnum: int
 {
     case TYPE_18 = 1;
     case TYPE_25 = 2;

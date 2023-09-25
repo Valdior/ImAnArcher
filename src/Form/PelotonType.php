@@ -2,21 +2,21 @@
 
 namespace App\Form;
 
-use App\Entity\Peloton;
-use App\Enum\PelotonTypeEnum;
+use App\Entity\Platoon;
+use App\Enum\PlatoonTypeEnum;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class PelotonType extends AbstractType
+class PlatoonType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('maxParticipants')
             ->add('type', EnumType::class, array(
-                'class' => PelotonTypeEnum::class,
+                'class' => PlatoonTypeEnum::class,
                 'choice_label' => fn ($choice) => $choice->label()
             ))
             ->add('startTime')
@@ -26,9 +26,9 @@ class PelotonType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Peloton::class,
-            'csrf_token_id' => 'peloton',
-            'translation_domain' => 'peloton',
+            'data_class' => Platoon::class,
+            'csrf_token_id' => 'platoon',
+            'translation_domain' => 'platoon',
         ]);
     }
 }
