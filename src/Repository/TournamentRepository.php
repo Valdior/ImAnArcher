@@ -45,8 +45,7 @@ class TournamentRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('t')
                     ->leftJoin('t.platoons', 'pla')
-                    ->leftJoin('pla.participants', 'p', Join::WITH, 'p.archer = :archer')
-                        ->setParameter('archer', $user->getId())
+                    ->leftJoin('pla.participants', 'p')
                     ->andWhere('t.id = :val')
                         ->setParameter('val', $id)
                     ->select('t', 'pla', 'p')
