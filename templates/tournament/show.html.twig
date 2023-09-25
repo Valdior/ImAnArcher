@@ -9,8 +9,9 @@
 
     <div class='row'>
         <section class='col-6'>
+            {% include "layout/message.html.twig" %}
+
             <h3>Où et quand ?</h3>
-            {{ include('layout/message.html.twig') }}
             {# {% if date(tournament.startDate) > date("now") or is_granted('ROLE_ADMIN') %} #}
             <ol class="list-group list-group-flush">
                 {% for platoon in tournament.platoons %}

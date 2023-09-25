@@ -84,8 +84,8 @@ class TournamentFixtures extends Fixture implements DependentFixtureInterface
         $this->addReference(self::TOURN_ACG_2, $tournament);
 
         $tournament = new Tournament();
-        $tournament->setStartDate(new \DateTime("01/20/2019"));
-        $tournament->setEndDate(new \DateTime("01/20/2019"));
+        $tournament->setStartDate(new \DateTime("01/13/2024"));
+        $tournament->setEndDate(new \DateTime("01/14/2024"));
         $tournament->setType(TournamentTypeEnum::Indoor);
         $tournament->setOrganizer($this->getReference(ClubFixtures::CLUB_ITW));
         $manager->persist($tournament);

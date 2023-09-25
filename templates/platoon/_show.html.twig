@@ -1,20 +1,27 @@
 <li class="list-group-item">
     <span class='badge bg-secondary'>{{ platoon.type.label }}</span>
+    <span class='badge bg-info' data-toggle="tooltip" data-placement="bottom" title="{{ platoon.participants | length }} archer(s)">
+        <i class="fad fa-bow-arrow" aria-hidden="true"></i> {{ platoon.participants | length }} / {{ platoon.maxParticipants }}
+    </span>
     <i class="fad fa-clock" aria-hidden="true"></i> {{ platoon.starttime|date('d-m-Y H:i') }}
 
-    {% for p in platoon.participants %}
-        <a  class='btn btn-success btn-sm'>Déjà inscrit pour cette session</a>
+    {% if is_granted('ROLE_USER') %}
+
+    {% for p in platoon.participants | filter(v => v.archer.id == app.user.id) %}
+        <a class='btn btn-success btn-sm'>Déjà inscrit pour cette session</a>
+        <a href="{{ path('participant_unregister', {'tournament': tournament.id, 'id' : platoon.id}) }}"  class="btn btn-sm btn-warning">Se désinscrire</a>
     {% else %}
         <a href='{{ path('participant_register', {'tournament': tournament.id, 'id' : platoon.id}) }}' class='btn btn-primary btn-sm'>
             S'inscrire
         </a>
     {% endfor %}
-    {% if is_granted('ROLE_USER') %}
+    {% endif %}
+
+
     
     {# {% if not isAlreadyRegistered %}
     
-    {% else %}
+    {% else %} #}
     
-    <a href="{{ path('participant_unregister', {'tournament': tournament.id, 'id' : peloton.id}) }}"  class="btn btn-warning">Se désinscrire</a> #}
-    {% endif %}
+
 </li>

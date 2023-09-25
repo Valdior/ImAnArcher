@@ -162,16 +162,23 @@ class PlatoonFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($platoon);
 
         $platoon = new Platoon();
-        $platoon->setMaxParticipants(92);
+        $platoon->setMaxParticipants(72);
         $platoon->setType(PlatoonTypeEnum::TYPE_18);
-        $platoon->setStartTime(new \DateTime("01/20/2019 08:30:00"));
+        $platoon->setStartTime(new \DateTime("01/13/2024 18:30:00"));
         $platoon->setTournament($this->getReference(TournamentFixtures::TOURN_ITW));
         $manager->persist($platoon);
 
         $platoon = new Platoon();
-        $platoon->setMaxParticipants(92);
+        $platoon->setMaxParticipants(72);
         $platoon->setType(PlatoonTypeEnum::TYPE_18);
-        $platoon->setStartTime(new \DateTime("01/20/2019 13:30:00"));
+        $platoon->setStartTime(new \DateTime("01/14/2024 08:30:00"));
+        $platoon->setTournament($this->getReference(TournamentFixtures::TOURN_ITW));
+        $manager->persist($platoon);
+
+        $platoon = new Platoon();
+        $platoon->setMaxParticipants(72);
+        $platoon->setType(PlatoonTypeEnum::TYPE_18);
+        $platoon->setStartTime(new \DateTime("01/14/2024 13:30:00"));
         $platoon->setTournament($this->getReference(TournamentFixtures::TOURN_ITW));
         $manager->persist($platoon);
 

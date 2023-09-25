@@ -39,6 +39,9 @@ class ParticipantController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityRepository->persist($participant);
             $entityRepository->flush();
+
+            $this->addFlash('success', 'Vous avez bien été inscrit au peloton');
+
             return $this->redirectToRoute('app_tournament_show', ['id' => $tournament->getId()]);
         }
 

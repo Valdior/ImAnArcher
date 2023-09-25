@@ -74,7 +74,7 @@ class TournamentController extends AbstractController
         }
         else
         {
-            $tournament = $er->findById($id);
+            $tournament = $er->findOneById($id);
         }
 
         return $this->render('tournament/show.html.twig', [
