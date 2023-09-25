@@ -14,12 +14,12 @@ class SecurityController extends AbstractController
     #[Route('/security/{id}', name: 'security_delete_account', methods: 'POST')]
     public function deleteAccount(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $user->getId(), $request->request->get('_token'))) {
             if (!in_array('ROLE_ADMIN', $user->getRoles())) {
                 $user->setCompetitions(null);
                 $entityManager->remove($user);
                 $entityManager->flush();
-            }            
+            }
         }
 
         return $this->redirectToRoute('home');
