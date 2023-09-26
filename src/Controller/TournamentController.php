@@ -35,7 +35,7 @@ class TournamentController extends AbstractController
     #[Route('/calendar', name: 'app_tournament_calendar', methods: 'GET')]
     public function calendar(TournamentRepository $tournamentRepository): Response
     {
-        $result = $tournamentRepository->findBy(array(), array('startDate' => 'DESC'));
+        $result = $tournamentRepository->findTournamentsAfterToday();
 
         return $this->render('tournament/calendar.html.twig', [
             'current_menu'  => 'calendar',

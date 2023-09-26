@@ -41,6 +41,17 @@ class TournamentRepository extends ServiceEntityRepository
         }
     }
 
+    public function findTournamentsAfterToday(): array
+    {
+        return $this->createQueryBuilder('t')
+                    ->andWhere('t.endDate >= :today')
+                        ->setParameter('today', (new \DateTime())->format('Y-m-d'))
+                    ->orderBy('t.startDate', 'ASC')
+                    ->getQuery()
+                    ->getResult()
+                ;
+    }
+
     public function findAllDatas(int $id, User $user): object
     {
         return $this->createQueryBuilder('t')
