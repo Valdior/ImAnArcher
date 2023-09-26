@@ -2,15 +2,17 @@
 
 namespace App\Entity;
 
-use App\Enum\TournamentTypeEnum;
-use App\Repository\TournamentRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\DBAL\Types\Types;
+use App\Enum\TournamentTypeEnum;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\TournamentRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 #[ORM\Entity(repositoryClass: TournamentRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Tournament
 {
     /**
@@ -38,6 +40,10 @@ class Tournament
 
     #[ORM\OneToMany(mappedBy: 'tournament', targetEntity: Platoon::class, orphanRemoval: true)]
     private Collection $platoons;
+
+    #[ORM\Column(length: 100)]
+    #[Assert\NotBlank]
+    private ?string $name = null;
 
     public function __construct()
     {
@@ -125,5 +131,25 @@ class Tournament
         $this->type = $type;
 
         return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    #[ORM\PrePersist]
+    public function setNameIfNull(): void
+    {
+        if(strlen(trim($this->name)) == 0) {
+            $this->name = $this->getOrganizer()->getAcronym() . ' - ' . $this->getOrganizer()->getName();
+        }
     }
 }
