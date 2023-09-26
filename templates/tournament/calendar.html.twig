@@ -23,7 +23,7 @@
 
 {% block body %}
     <div class="row p-4">
-        <h1>Calendar for this season</h1>
+        <h1>Upcoming competitions</h1>
     </div>
 
     {% for tournament in tournaments %}
@@ -47,7 +47,12 @@
     {% else %}
     <div colspan="5">no records found</div>
     {% endfor %}
-{% if is_granted('ROLE_ADMIN') %}
-    <a href="{{ path('app_tournament_new') }}">Create new</a>
-{% endif %}
+
+    {% if is_granted('ROLE_ADMIN') %}
+    <div class='row my-4'>
+        <div class='col'>
+            <a class="btn btn-sm btn-primary" href="{{ path('app_tournament_new') }}"><i class='fad fa-plus'></i> Create new</a>
+        </div>
+    </div>
+    {% endif %}
 {% endblock %}
