@@ -1,4 +1,4 @@
-{% set isLimitExcedeed = platoon.maxParticipants == platoon.participants | length %}
+{% set isLimitExcedeed = platoon.maxParticipants <= platoon.participants | length %}
 
 <li class="list-group-item">
     <span class='badge bg-secondary'>{{ platoon.type.label }}</span>
@@ -20,12 +20,4 @@
         {% endif %}
     {% endfor %}
     {% endif %}
-
-
-    
-    {# {% if not isAlreadyRegistered %}
-    
-    {% else %} #}
-    
-
 </li>

@@ -64,7 +64,7 @@ class ParticipantController extends AbstractController
         ParticipationService $ps,
         AuthorizationCheckerInterface $auth
     ): Response {
-        if (!$auth->isGranted(PlatoonParticipanVoter::UNREGISTER, $platoon)) {
+        if (!$auth->isGranted(PlatoonParticipantVoter::UNREGISTER, $platoon)) {
             return $this->redirectToRoute('app_tournament_show', ['id' => $tournament->getId()]);
         }
 
