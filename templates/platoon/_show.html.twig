@@ -7,7 +7,7 @@
 
     {% if is_granted('ROLE_USER') %}
 
-    {% for p in platoon.participants | filter(v => v.archer.id == app.user.id) %}
+    {% for p in platoon.participants | filter(v => v.archer is not null and v.archer.id == app.user.id) %}
         <a class='btn btn-success btn-sm'>Déjà inscrit pour cette session</a>
         <a href="{{ path('participant_unregister', {'tournament': tournament.id, 'id' : platoon.id}) }}"  class="btn btn-sm btn-warning">Se désinscrire</a>
     {% else %}

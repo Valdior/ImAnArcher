@@ -7,7 +7,7 @@ use App\Entity\User;
 use App\Repository\ParticipantRepository;
 use Doctrine\ORM\EntityManagerInterface;
 
-class ParticipationHelper
+class ParticipationService
 {
     /**
      * @return ParticipantRepository

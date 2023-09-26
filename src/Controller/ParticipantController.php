@@ -2,31 +2,34 @@
 
 namespace App\Controller;
 
+use App\Entity\Platoon;
 use App\Entity\Tournament;
 use App\Entity\Participant;
-use App\Entity\Platoon;
 use App\Form\ParticipantType;
-use App\Service\ParticipationHelper;
+use App\Service\ParticipationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use App\Security\Voter\PlatoonParticipantVoter;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 #[Route('/tournament/{tournament}/participant')]
 class ParticipantController extends AbstractController
 {
     #[Route('/{id}/register', name: 'participant_register', methods: 'GET|POST')]
+    #[IsGranted('ROLE_USER')]
     public function register(
         Tournament $tournament,
         Platoon $platoon,
         Request $request,
         EntityManagerInterface $entityRepository,
-        ParticipationHelper $helper
+        AuthorizationCheckerInterface $auth
     ): Response {
-        if ($helper->isAlreadyRegistered($this->getUser(), $platoon)) {
-            $this->addFlash('warning', 'Vous êtes déjà inscrit à ce peloton');
-            return $this->redirectToRoute('app_tournament_show', ['id' => $platoon->getTournament()->getId()]);
+        if (!$auth->isGranted(PlatoonParticipantVoter::REGISTER, $platoon)) {
+            return $this->redirectToRoute('app_tournament_show', ['id' => $tournament->getId()]);
         }
 
         $participant = new Participant();
@@ -54,20 +57,18 @@ class ParticipantController extends AbstractController
     }
 
     #[Route('/{id}/unregister', name: 'participant_unregister', methods: 'GET|POST')]
+    #[IsGranted('ROLE_USER')]
     public function unregister(
         Tournament $tournament,
         Platoon $platoon,
-        ParticipationHelper $helper
+        ParticipationService $ps,
+        AuthorizationCheckerInterface $auth
     ): Response {
-        if (!$helper->isAlreadyRegistered($this->getUser(), $platoon)) {
-            $this->addFlash(
-                'warning',
-                'Vous ne pouvez pas vous désincrire à un peloton auquel vous n\'êtes pas déjà inscrit'
-            );
-            return $this->redirectToRoute('tournament_show', ['id' => $tournament->getId()]);
+        if (!$auth->isGranted(PlatoonParticipanVoter::UNREGISTER, $platoon)) {
+            return $this->redirectToRoute('app_ttournament_show', ['id' => $tournament->getId()]);
         }
 
-        $helper->cancelParticipation($this->getUser(), $platoon);
+        $ps->cancelParticipation($this->getUser(), $platoon);
         $this->addFlash('success', 'Vous avez bien été désinscrit du peloton');
 
         return $this->redirectToRoute('app_tournament_show', ['id' => $tournament->getId()]);
@@ -84,8 +85,6 @@ class ParticipantController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            dump('Before persisting the participant entity: ', $participant);
-
             $er->persist($participant);
             $er->flush();
 
