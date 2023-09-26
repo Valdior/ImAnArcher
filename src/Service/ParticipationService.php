@@ -37,9 +37,21 @@ class ParticipationService
     public function cancelParticipation(User $archer, Platoon $platoon)
     {
         if ($this->isAlreadyRegistered($archer, $platoon)) {
-            $participant = $this->repo->getParticipant($archer, $platoon);
+            $participant = $this->repo
+                                ->getParticipant($archer, $platoon);
+
             $this->em->remove($participant);
             $this->em->flush();
         }
+    }
+
+    /**
+     * @var boolean
+     * @return boolean Check if there is still a place available at the tournament
+     */
+    public function isParticipantLimitExceeded(Platoon $platoon): bool
+    {
+        // Comparez avec la limite de participants de l'événement
+        return count($platoon->getParticipants()) >= $platoon->getMaxParticipants();
     }
 }

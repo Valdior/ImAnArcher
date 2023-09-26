@@ -62,6 +62,9 @@ class PlatoonParticipantVoter extends Voter
         }
 
         // Est-ce qu'il y a encore une place de disponible ?
+        if ($this->ps->isParticipantLimitExceeded($platoon)) {
+            return false;
+        }
         return true;
     }
 

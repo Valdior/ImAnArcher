@@ -1,6 +1,8 @@
+{% set isLimitExcedeed = platoon.maxParticipants == platoon.participants | length %}
+
 <li class="list-group-item">
     <span class='badge bg-secondary'>{{ platoon.type.label }}</span>
-    <span class='badge bg-info' data-toggle="tooltip" data-placement="bottom" title="{{ platoon.participants | length }} archer(s)">
+    <span class='badge bg-{{ isLimitExcedeed ? 'danger' : 'info' }}' data-toggle="tooltip" data-placement="bottom" title="{{ platoon.participants | length }} archer(s)">
         <i class="fad fa-bow-arrow" aria-hidden="true"></i> {{ platoon.participants | length }} / {{ platoon.maxParticipants }}
     </span>
     <i class="fad fa-clock" aria-hidden="true"></i> {{ platoon.starttime|date('d-m-Y H:i') }}
@@ -11,9 +13,11 @@
         <a class='btn btn-success btn-sm'>Déjà inscrit pour cette session</a>
         <a href="{{ path('participant_unregister', {'tournament': tournament.id, 'id' : platoon.id}) }}"  class="btn btn-sm btn-warning">Se désinscrire</a>
     {% else %}
+        {% if not isLimitExcedeed %}
         <a href='{{ path('participant_register', {'tournament': tournament.id, 'id' : platoon.id}) }}' class='btn btn-primary btn-sm'>
             S'inscrire
         </a>
+        {% endif %}
     {% endfor %}
     {% endif %}
 
