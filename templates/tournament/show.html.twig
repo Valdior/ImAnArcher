@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Tournament - {{ tournament.organizer.acronym }}{% endblock %}
+{% block title %}Tournament - {{ tournament.name }}{% endblock %}
 
 {% block body %}
     <div class="row p-4">
-        <h1><span class='badge bg-{% if tournament.type.value == 1 %}primary{% else %}success{% endif %}'>{{ tournament.type.name }}</span> {{ tournament.organizer.acronym }} - {{ tournament.organizer.name }}</h1>
+        <h1><span class='badge bg-{% if tournament.type.value == 1 %}primary{% else %}success{% endif %}'>{{ tournament.type.name }}</span> {{ tournament.name }}</h1>
     </div>
 
     <div class='row'>
