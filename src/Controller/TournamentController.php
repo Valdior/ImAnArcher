@@ -90,7 +90,7 @@ class TournamentController extends AbstractController
             $entityManager->persist($tournament);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_tournament_edit', ['id' => $tournament->getId()]);
+            return $this->redirectToRoute('app_tournament_show', ['id' => $tournament->getId()]);
         }
 
         return $this->render('tournament/edit.html.twig', [

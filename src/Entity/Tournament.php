@@ -42,7 +42,6 @@ class Tournament
     private Collection $platoons;
 
     #[ORM\Column(length: 100)]
-    #[Assert\NotBlank]
     private ?string $name = null;
 
     public function __construct()
