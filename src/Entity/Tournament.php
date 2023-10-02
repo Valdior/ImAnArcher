@@ -147,7 +147,7 @@ class Tournament
     #[ORM\PrePersist]
     public function setNameIfNull(): void
     {
-        if(strlen(trim($this->name)) == 0) {
+        if (strlen(trim($this->name)) == 0) {
             $this->name = $this->getOrganizer()->getAcronym() . ' - ' . $this->getOrganizer()->getName();
         }
     }

@@ -16,7 +16,7 @@ class TournamentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class,  ['required' => false])
+            ->add('name', TextType::class, ['required' => false])
             ->add('startDate', DateType::class, array(
                 'widget' => 'choice',
             ))
