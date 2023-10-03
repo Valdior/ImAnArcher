@@ -4,7 +4,6 @@ namespace App\Type;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-
 class DateTimeType extends \Symfony\Component\Form\Extension\Core\Type\DateTimeType
 {
     public function configureOptions(OptionsResolver $resolver): void

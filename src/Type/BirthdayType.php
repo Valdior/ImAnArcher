@@ -4,7 +4,6 @@ namespace App\Type;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-
 class BirthdayType extends \Symfony\Component\Form\Extension\Core\Type\BirthdayType
 {
     public function configureOptions(OptionsResolver $resolver): void
