@@ -46,7 +46,8 @@ class Platoon
         $this->type = PlatoonTypeEnum::TYPE_18;
     }
 
-    public function __toString() {
+    public function __toString()
+    {
         return 'Platoon : ' .  $this->getId();
     }
 
