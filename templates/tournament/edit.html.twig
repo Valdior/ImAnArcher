@@ -11,3 +11,80 @@
 
     {{ include('tournament/_delete_form.html.twig') }}
 {% endblock %}
+
+{% block javascripts %}
+    <script>
+        let collection, boutonAjout, span;
+        window.onload = () => {
+            collection = document.querySelector("#platoons");
+            span = collection.querySelector("#addPlatoon");
+
+            boutonAjout = document.createElement("button");
+            boutonAjout.className = "add-platoon btn btn-secondary";
+            boutonAjout.innerText = "Add platoon";
+
+            span.append(boutonAjout);
+
+            collection.dataset.index = collection.querySelectorAll("input").length;
+            deleteButtonElement(collection);
+
+            boutonAjout.addEventListener("click", function(){
+                deleteButton(collection);
+            });
+        }
+
+        function deleteButtonElement(collection) {
+            /* retrouver les autres élèments */
+            let elements = collection.firstElementChild;
+            let index = 0;            
+
+            for (const child of elements.children) {
+                let boutonSuppr = document.createElement("button");
+                boutonSuppr.type = "button";
+                boutonSuppr.className = "btn btn-danger";
+                boutonSuppr.id = "delete-platoon-" + index;
+                boutonSuppr.innerText = "Delete this platoon";
+                child.append(boutonSuppr);
+
+                boutonSuppr.addEventListener("click", function() {
+                    this.previousElementSibling.parentElement.remove();
+                })
+                index++;
+            }
+        }
+
+        function deleteButton(collection) {
+            let prototype = collection.dataset.prototype;
+            let index = collection.dataset.index;
+            let fieldset = document.createElement("fieldset");
+            fieldset.className = "mb-3";
+
+            prototype = prototype.replace(/__name__/g, index);
+
+            let content = document.createElement("html");
+            content.innerHTML = prototype;
+            let newForm = content.querySelector("div");
+
+            let boutonSuppr = document.createElement("button");
+            boutonSuppr.type = "button";
+            boutonSuppr.className = "btn btn-danger";
+            boutonSuppr.id = "delete-platoon-" + index;
+            boutonSuppr.innerText = "Delete this platoon";
+
+            newForm.append(boutonSuppr);
+
+            collection.dataset.index++;
+
+            let boutonAjout = collection.querySelector(".add-platoon");
+            let platoons = collection.querySelector("#tournament_platoons");
+
+            fieldset.appendChild(newForm, boutonAjout);
+
+            platoons.appendChild(fieldset);
+
+            boutonSuppr.addEventListener("click", function() {
+                this.previousElementSibling.parentElement.remove();
+            })
+        }
+    </script>
+{% endblock %}

@@ -44,6 +44,7 @@ class TournamentController extends AbstractController
     }
 
     #[Route('/new', name: 'app_tournament_new', methods: 'GET|POST')]
+    #[IsGranted('ROLE_ADMIN')]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $tournament = new Tournament();
@@ -81,6 +82,7 @@ class TournamentController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_tournament_edit', methods: 'GET|POST')]
+    #[IsGranted('ROLE_ADMIN')]
     public function edit(Request $request, Tournament $tournament, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(TournamentType::class, $tournament);
@@ -101,6 +103,7 @@ class TournamentController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_tournament_delete', methods: 'POST|DELETE')]
+    #[IsGranted('ROLE_ADMIN')]
     public function delete(
         Request $request,
         Tournament $tournament,
