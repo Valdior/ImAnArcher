@@ -3,11 +3,12 @@
 namespace App\Form;
 
 use App\Entity\Platoon;
+use App\Type\DateTimeType;
 use App\Enum\PlatoonTypeEnum;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\EnumType;
 
 class PlatoonType extends AbstractType
 {
@@ -19,7 +20,9 @@ class PlatoonType extends AbstractType
                 'class' => PlatoonTypeEnum::class,
                 'choice_label' => fn ($choice) => $choice->label()
             ))
-            ->add('startTime')
+            ->add('startTime', DateTimeType::class, array(
+                'widget' => 'single_text',
+            ))
         ;
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Type\DateType;
 use App\Form\PlatoonType;
 use App\Entity\Tournament;
 use App\Enum\TournamentTypeEnum;
@@ -11,7 +12,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -23,10 +23,10 @@ class TournamentType extends AbstractType
         $builder
             ->add('name', TextType::class, ['required' => false])
             ->add('startDate', DateType::class, array(
-                'widget' => 'choice',
+                'widget' => 'single_text',
             ))
             ->add('endDate', DateType::class, array(
-                'widget' => 'choice',
+                'widget' => 'single_text',
             ))
             ->add('type', EnumType::class, array(
                 'class' => TournamentTypeEnum::class,

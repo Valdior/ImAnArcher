@@ -68,6 +68,8 @@
     },
     "scripts": {
         "prepare": [
+            "php bin/console doctrine:database:drop --if-exists -f",
+            "php bin/console doctrine:database:create",
             "php bin/console doctrine:schema:update -f",
             "php bin/console doctrine:fixtures:load --no-interaction"
         ],
