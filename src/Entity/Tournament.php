@@ -38,7 +38,7 @@ class Tournament
     #[ORM\ManyToOne(inversedBy: 'tournaments')]
     private ?Club $organizer = null;
 
-    #[ORM\OneToMany(mappedBy: 'tournament', targetEntity: Platoon::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'tournament', targetEntity: Platoon::class, orphanRemoval: true, cascade: ['persist'])]
     private Collection $platoons;
 
     #[ORM\Column(length: 100)]

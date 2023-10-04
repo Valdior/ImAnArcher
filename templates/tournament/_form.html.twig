@@ -1,4 +1,20 @@
 {{ form_start(form) }}
+    <div class="row">
+        {{ form_row(form.name, {row_attr: {class: 'col-md-4'}}) }}
+        {{ form_row(form.type, {row_attr: {class: 'col-md-2'}}) }}
+        {{ form_row(form.organizer, {row_attr: {class: 'col-md-4'}}) }}
+    </div>
+    <div class="row">
+        {{ form_row(form.startDate, {row_attr: {class: 'col-md-3'}}) }}
+        {{ form_row(form.endDate, {row_attr: {class: 'col-md-3'}}) }}
+    </div>
+
+    <div id="platoons" data-prototype="{{ form_widget(form.platoons.vars.prototype)|e('html_attr') }}">
+        {{ form_widget(form.platoons) }}
+        <span id='addPlatoon'></span>
+    </div>
+
     {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+
+    <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

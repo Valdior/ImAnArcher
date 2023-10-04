@@ -6,12 +6,13 @@ use App\Entity\Tournament;
 use App\Form\TournamentType;
 use App\Repository\TournamentRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/tournament')]
 class TournamentController extends AbstractController
@@ -44,6 +45,7 @@ class TournamentController extends AbstractController
     }
 
     #[Route('/new', name: 'app_tournament_new', methods: 'GET|POST')]
+    #[IsGranted('ROLE_ADMIN')]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $tournament = new Tournament();
@@ -81,6 +83,7 @@ class TournamentController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_tournament_edit', methods: 'GET|POST')]
+    #[IsGranted('ROLE_ADMIN')]
     public function edit(Request $request, Tournament $tournament, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(TournamentType::class, $tournament);
@@ -101,6 +104,7 @@ class TournamentController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_tournament_delete', methods: 'POST|DELETE')]
+    #[IsGranted('ROLE_ADMIN')]
     public function delete(
         Request $request,
         Tournament $tournament,

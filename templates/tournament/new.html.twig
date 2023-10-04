@@ -1,5 +1,10 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}
+{{ parent() }}
+{{ encore_entry_link_tags('form') }}
+{% endblock %}
+
 {% block title %}New Tournament{% endblock %}
 
 {% block body %}
@@ -8,4 +13,65 @@
     {{ include('tournament/_form.html.twig') }}
 
     <a href="{{ path('app_tournament') }}">back to list</a>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+{{ encore_entry_script_tags('form') }}
+    <script>
+        let collection, boutonAjout, span;
+        window.onload = () => {
+            collection = document.querySelector("#platoons");
+            span = collection.querySelector("#addPlatoon");
+
+            boutonAjout = document.createElement("button");
+            boutonAjout.className = "add-platoon btn btn-secondary";
+            boutonAjout.innerText = "Add platoon";
+
+            let nouveauBouton = span.append(boutonAjout);
+
+            collection.dataset.index = collection.querySelectorAll("input").length;
+
+            boutonAjout.addEventListener("click", function(){
+                addButton(collection, nouveauBouton);
+            });
+        }
+
+        function addButton(collection, nouveauBouton){
+            let prototype = collection.dataset.prototype;
+            let index = collection.dataset.index;
+            let fieldset = document.createElement("fieldset");
+            fieldset.className = "mb-3";
+
+            prototype = prototype.replace(/__name__/g, index);
+
+            let content = document.createElement("html");
+            content.innerHTML = prototype;
+            let newForm = content.querySelector("div");
+
+            let boutonSuppr = document.createElement("button");
+            boutonSuppr.type = "button";
+            boutonSuppr.className = "btn btn-danger";
+            boutonSuppr.id = "delete-platoon-" + index;
+            boutonSuppr.innerText = "Delete this platoon";
+
+            newForm.append(boutonSuppr);
+
+            collection.dataset.index++;
+
+            let boutonAjout = collection.querySelector(".add-platoon");
+            let platoons = collection.querySelector("#tournament_platoons");
+
+            fieldset.appendChild(newForm, boutonAjout);
+
+            platoons.appendChild(fieldset);
+
+            span.insertBefore(newForm, boutonAjout);
+
+            boutonSuppr.addEventListener("click", function(){
+                this.previousElementSibling.parentElement.remove();
+            })
+        }
+
+    </script>
 {% endblock %}

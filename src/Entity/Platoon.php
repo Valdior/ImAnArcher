@@ -43,6 +43,12 @@ class Platoon
     public function __construct()
     {
         $this->participants = new ArrayCollection();
+        $this->type = PlatoonTypeEnum::TYPE_18;
+    }
+
+    public function __toString()
+    {
+        return 'Platoon : ' .  $this->getId();
     }
 
     public function getId(): ?int

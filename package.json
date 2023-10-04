@@ -18,7 +18,7 @@
         "webpack-cli": "^4.10.0",
         "webpack-notifier": "^1.15.0"
     },
-    "license": "UNLICENSED",
+    "license": "CC BY-NC-ND 4.0 DEED",
     "private": true,
     "scripts": {
         "dev-server": "encore dev-server",
@@ -26,5 +26,7 @@
         "watch": "encore dev --watch",
         "build": "encore production --progress"
     },
-    "dependencies": {}
+    "dependencies": {
+        "flatpickr": "^4.6.13"
+    }
 }
