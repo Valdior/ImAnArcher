@@ -1,0 +1,8 @@
+form.label.platoons: Pelotons
+form.label.informations: Informations
+
+form.tournament.name: Nom de la compétition
+form.tournament.startDate: Date de début
+form.tournament.endDate: Date de fin
+form.tournament.type: Type de compétition
+form.tournament.organizer: Organisateur

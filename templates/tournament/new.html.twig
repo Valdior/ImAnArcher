@@ -25,8 +25,8 @@
             span = collection.querySelector("#addPlatoon");
 
             boutonAjout = document.createElement("button");
-            boutonAjout.className = "add-platoon btn btn-secondary";
-            boutonAjout.innerText = "Add platoon";
+            boutonAjout.className = "add-platoon btn btn-secondary mt-4";
+            boutonAjout.innerHTML = "<i class='fad fa-plus'></i> Add platoon";
 
             let nouveauBouton = span.append(boutonAjout);
 
@@ -49,11 +49,11 @@
             content.innerHTML = prototype;
             let newForm = content.querySelector("div");
 
-            let boutonSuppr = document.createElement("button");
+            let boutonSuppr = document.createElement("span");
             boutonSuppr.type = "button";
             boutonSuppr.className = "btn btn-danger";
             boutonSuppr.id = "delete-platoon-" + index;
-            boutonSuppr.innerText = "Delete this platoon";
+            boutonSuppr.innerHTML = "<i class='fad fa-trash'></i> Delete this platoon";
 
             newForm.append(boutonSuppr);
 
@@ -63,7 +63,6 @@
             let platoons = collection.querySelector("#tournament_platoons");
 
             fieldset.appendChild(newForm, boutonAjout);
-
             platoons.appendChild(fieldset);
 
             span.insertBefore(newForm, boutonAjout);

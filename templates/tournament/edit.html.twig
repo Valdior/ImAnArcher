@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% trans_default_domain 'tournament' %}
+
 {% block stylesheets %}
 {{ parent() }}
 {{ encore_entry_link_tags('form') }}
@@ -8,13 +10,22 @@
 {% block title %}Edit Tournament{% endblock %}
 
 {% block body %}
-    <h1>Edit Tournament</h1>
-
-    {{ include('tournament/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_tournament') }}">back to list</a>
-
-    {{ include('tournament/_delete_form.html.twig') }}
+<section class="row">
+    <div class="col">
+        <div class="card">
+        <header class="card-header">
+            <h1>Edit Tournament</h1>            
+        </header>
+        <article class="card-body">
+            {{ include('tournament/_form.html.twig', {'button_label': 'Update'}) }}
+            <span class="clearfix">
+                <a href="{{ path('app_tournament_show', {'id': tournament.id}) }}" class="btn btn-secondary float-end"><i class='fad fa-times'></i> Cancel</a>
+                {{ include('tournament/_delete_form.html.twig') }}
+            </span>
+        </article>
+        </div>
+    </div>
+</section>
 {% endblock %}
 
 {% block javascripts %}
@@ -27,13 +38,13 @@
             span = collection.querySelector("#addPlatoon");
 
             boutonAjout = document.createElement("button");
-            boutonAjout.className = "add-platoon btn btn-secondary";
-            boutonAjout.innerText = "Add platoon";
+            boutonAjout.className = "add-platoon btn btn-secondary mt-4";
+            boutonAjout.innerHTML = "<i class='fad fa-plus'></i> Add platoon";
 
             span.append(boutonAjout);
 
             collection.dataset.index = collection.querySelectorAll("input").length;
-            deleteButtonElement(collection);
+            // deleteButtonElement(collection);
 
             boutonAjout.addEventListener("click", function(){
                 deleteButton(collection);
@@ -50,7 +61,8 @@
                 boutonSuppr.type = "button";
                 boutonSuppr.className = "btn btn-danger";
                 boutonSuppr.id = "delete-platoon-" + index;
-                boutonSuppr.innerText = "Delete this platoon";
+                boutonSuppr.innerHTML = "<i class='fad fa-trash'></i> Delete this platoon";
+
                 child.append(boutonSuppr);
 
                 boutonSuppr.addEventListener("click", function() {
@@ -63,33 +75,39 @@
         function deleteButton(collection) {
             let prototype = collection.dataset.prototype;
             let index = collection.dataset.index;
-            let fieldset = document.createElement("fieldset");
-            fieldset.className = "mb-3";
 
             prototype = prototype.replace(/__name__/g, index);
 
-            let content = document.createElement("html");
+            let content = document.createElement("div");
             content.innerHTML = prototype;
             let newForm = content.querySelector("div");
 
+            newForm.className = 'row';
+            let fields = newForm.querySelectorAll("div");
+            
+            for(const field of fields) {
+                field.className = 'col-2';
+            }
+
+            let body = document.createElement("div");
+            body.className = 'col-2';
             let boutonSuppr = document.createElement("button");
             boutonSuppr.type = "button";
             boutonSuppr.className = "btn btn-danger";
             boutonSuppr.id = "delete-platoon-" + index;
-            boutonSuppr.innerText = "Delete this platoon";
+            boutonSuppr.innerHTML = "<i class='fad fa-trash'></i> Delete this platoon";
 
-            newForm.append(boutonSuppr);
+            body.append(boutonSuppr);
+            newForm.append(body);
 
             collection.dataset.index++;
 
             let boutonAjout = collection.querySelector(".add-platoon");
             let platoons = collection.querySelector("#tournament_platoons");
 
-            fieldset.appendChild(newForm, boutonAjout);
+            platoons.appendChild(newForm, boutonAjout);
 
-            platoons.appendChild(fieldset);
-
-            boutonSuppr.addEventListener("click", function() {
+            body.addEventListener("click", function() {
                 this.previousElementSibling.parentElement.remove();
             })
         }
