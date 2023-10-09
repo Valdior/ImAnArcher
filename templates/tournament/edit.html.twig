@@ -44,7 +44,7 @@
             span.append(boutonAjout);
 
             collection.dataset.index = collection.querySelectorAll("input").length;
-            // deleteButtonElement(collection);
+            deleteButtonElement(collection);
 
             boutonAjout.addEventListener("click", function(){
                 deleteButton(collection);
@@ -57,16 +57,20 @@
             let index = 0;            
 
             for (const child of elements.children) {
+                let body = document.createElement("div");
                 let boutonSuppr = document.createElement("button");
                 boutonSuppr.type = "button";
                 boutonSuppr.className = "btn btn-danger";
                 boutonSuppr.id = "delete-platoon-" + index;
                 boutonSuppr.innerHTML = "<i class='fad fa-trash'></i> Delete this platoon";
+                child.className = 'row row-cols-lg-auto g-3 align-items-end';
+                body.className = 'mb-3';
 
-                child.append(boutonSuppr);
+                body.append(boutonSuppr);
+                child.append(body);
 
                 boutonSuppr.addEventListener("click", function() {
-                    this.previousElementSibling.parentElement.remove();
+                    this.parentElement.previousElementSibling.parentElement.remove();
                 })
                 index++;
             }
@@ -82,15 +86,11 @@
             content.innerHTML = prototype;
             let newForm = content.querySelector("div");
 
-            newForm.className = 'row';
-            let fields = newForm.querySelectorAll("div");
-            
-            for(const field of fields) {
-                field.className = 'col-2';
-            }
+            newForm.className = 'row row-cols-lg-auto g-3 align-items-end';
 
             let body = document.createElement("div");
-            body.className = 'col-2';
+            body.className = 'mb-3';
+
             let boutonSuppr = document.createElement("button");
             boutonSuppr.type = "button";
             boutonSuppr.className = "btn btn-danger";

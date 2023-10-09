@@ -20,20 +20,17 @@
         <div id="platoons" data-prototype="{{ form_widget(form.platoons.vars.prototype)|e('html_attr') }}">
             <div id="tournament_platoons">
                 {% for platoon in form.platoons %}
-                <div id="tournament_platoons_{{ loop.index - 1 }}" class="row">
-                    {{ form_row(platoon.maxParticipants, {row_attr: {class: 'col-md-2'}}) }}
-                    {{ form_row(platoon.type, {row_attr: {class: 'col-md-2'}}) }}
-                    {{ form_row(platoon.startTime, {row_attr: {class: 'col-md-2'}}) }}
+                <div id="tournament_platoons_{{ loop.index - 1 }}" class="row row-cols-lg-auto g-3 align-items-center">
+                    {{ form_row(platoon.maxParticipants) }}
+                    {{ form_row(platoon.type) }}
+                    {{ form_row(platoon.startTime) }}
                 </div>
                 {% endfor %}
-                {{ form_end(form.platoons) }}
             </div>
 
             <span id='addPlatoon'></span>
         </div>
     </fieldset>
-
-    {{ form_widget(form) }}
 
     <button class="btn btn-success float-end"><i class='fad fa-check'></i> {{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
