@@ -7,14 +7,14 @@
 {{ encore_entry_link_tags('form') }}
 {% endblock %}
 
-{% block title %}Edit Tournament{% endblock %}
+{% block title %}{{ 'form.label.edit' | trans }} {{ 'form.label.title' | trans }}{% endblock %}
 
 {% block body %}
 <section class="row">
     <div class="col">
         <div class="card">
         <header class="card-header">
-            <h1>Edit Tournament</h1>            
+            <h1>{{ 'form.label.edit' | trans }} {{ 'form.label.title' | trans }}</h1>
         </header>
         <article class="card-body">
             {{ include('tournament/_form.html.twig', {'button_label': 'Update'}) }}
@@ -54,7 +54,11 @@
         function deleteButtonElement(collection) {
             /* retrouver les autres élèments */
             let elements = collection.firstElementChild;
-            let index = 0;            
+            let index = 0;
+
+            if(!(elements.children.length === 1 && elements.children[0].id.endsWith(`_${index}`))) {
+                return;
+            }
 
             for (const child of elements.children) {
                 let body = document.createElement("div");

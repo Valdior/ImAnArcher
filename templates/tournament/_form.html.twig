@@ -25,6 +25,9 @@
                     {{ form_row(platoon.type) }}
                     {{ form_row(platoon.startTime) }}
                 </div>
+                {% else %}
+                {{ form_widget(form.platoons) }}
+
                 {% endfor %}
             </div>
 
