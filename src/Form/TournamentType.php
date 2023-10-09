@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Club;
 use App\Type\DateType;
 use App\Form\PlatoonType;
 use App\Entity\Tournament;
@@ -21,20 +22,28 @@ class TournamentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class, ['required' => false])
+            ->add('name', TextType::class, [
+                'required' => false,
+                'label' => 'form.tournament.name'
+                ])
             ->add('startDate', DateType::class, array(
                 'widget' => 'single_text',
+                'label' => 'form.tournament.startDate',
             ))
             ->add('endDate', DateType::class, array(
                 'widget' => 'single_text',
+                'label' => 'form.tournament.endDate',
             ))
             ->add('type', EnumType::class, array(
                 'class' => TournamentTypeEnum::class,
+                'label' => 'form.tournament.type',
             ))
-            ->add('organizer')
+            ->add('organizer', EntityType::class, array(
+                'label' => 'form.tournament.organizer',
+                'class' => Club::class
+            ))
             ->add('platoons', CollectionType::class, array(
                 'entry_type' => PlatoonType::class,
-                'label' => 'Platoons',
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
                 'allow_delete' => true,

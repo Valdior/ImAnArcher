@@ -1,0 +1,15 @@
+form.label.platoons: Pelotons
+form.label.informations: Informations
+form.label.backtolist: Retour à la liste
+form.label.update: Modifier la compétition
+form.label.title: Compétition
+form.label.new: Créer une nouvelle
+form.label.edit: Modifié
+form.label.whereandwhen: Où et Quand ?
+form.label.norecords: Aucun donnée trouvée
+
+form.tournament.name: Nom de la compétition
+form.tournament.startDate: Date de début
+form.tournament.endDate: Date de fin
+form.tournament.type: Type de compétition
+form.tournament.organizer: Organisateur

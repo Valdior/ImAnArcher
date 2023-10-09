@@ -1,20 +1,39 @@
+{% trans_default_domain 'tournament' %}
+
 {{ form_start(form) }}
-    <div class="row">
-        {{ form_row(form.name, {row_attr: {class: 'col-md-4'}}) }}
-        {{ form_row(form.type, {row_attr: {class: 'col-md-2'}}) }}
-        {{ form_row(form.organizer, {row_attr: {class: 'col-md-4'}}) }}
-    </div>
-    <div class="row">
-        {{ form_row(form.startDate, {row_attr: {class: 'col-md-3'}}) }}
-        {{ form_row(form.endDate, {row_attr: {class: 'col-md-3'}}) }}
-    </div>
+    <fieldset>
+        <legend class='form'>{{ 'form.label.informations' | trans }}</legend>
+        <div class="row">
+            {{ form_row(form.name, {row_attr: {class: 'col-md-4'}}) }}
+            {{ form_row(form.type, {row_attr: {class: 'col-md-2'}}) }}
+            {{ form_row(form.organizer, {row_attr: {class: 'col-md-4'}}) }}
+        </div>
 
-    <div id="platoons" data-prototype="{{ form_widget(form.platoons.vars.prototype)|e('html_attr') }}">
-        {{ form_widget(form.platoons) }}
-        <span id='addPlatoon'></span>
-    </div>
+        <div class="row">
+            {{ form_row(form.startDate, {row_attr: {class: 'col-md-3'}}) }}
+            {{ form_row(form.endDate, {row_attr: {class: 'col-md-3'}}) }}
+        </div>
+    </fieldset>
 
-    {{ form_widget(form) }}
+    <fieldset class='my-3'>
+        <legend class='form'>{{ 'form.label.platoons' | trans }}</legend>
+        <div id="platoons" data-prototype="{{ form_widget(form.platoons.vars.prototype)|e('html_attr') }}">
+            <div id="tournament_platoons">
+                {% for platoon in form.platoons %}
+                <div id="tournament_platoons_{{ loop.index - 1 }}" class="row row-cols-lg-auto g-3 align-items-center">
+                    {{ form_row(platoon.maxParticipants) }}
+                    {{ form_row(platoon.type) }}
+                    {{ form_row(platoon.startTime) }}
+                </div>
+                {% else %}
+                {{ form_widget(form.platoons) }}
 
-    <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+                {% endfor %}
+            </div>
+
+            <span id='addPlatoon'></span>
+        </div>
+    </fieldset>
+
+    <button class="btn btn-success float-end"><i class='fad fa-check'></i> {{ button_label|default('Save') }}</button>
 {{ form_end(form) }}
