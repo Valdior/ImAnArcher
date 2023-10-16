@@ -14,10 +14,13 @@
             <a class="nav-link {% if current_menu is defined and current_menu == 'home' %}active{% endif %}" aria-current="page" href="{{ path('home')}}">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            {# <a class="nav-link {% if current_menu is defined and current_menu == 'blog' %}active{% endif %}" aria-current="page" href="{{ path('post_index')}}">Blog</a> #}
+            <a class="nav-link {% if current_menu is defined and current_menu == 'calendar' %}active{% endif %}" aria-current="page" href="{{ path('app_tournament_calendar')}}">Calendar</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {% if current_menu is defined and current_menu == 'calendar' %}active{% endif %}" aria-current="page" href="{{ path('app_tournament_calendar')}}">Calendar</a>
+            <a class="nav-link {% if current_menu is defined and current_menu == 'blog' %}active{% endif %}" aria-current="page" href="#nowhere">Clubs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if current_menu is defined and current_menu == 'blog' %}active{% endif %}" aria-current="page" href="#nowhere">Blog</a>
           </li>
         </ul>
         <ul class="navbar-nav ms-auto">

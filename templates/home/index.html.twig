@@ -4,9 +4,46 @@
 
 {% block body %}
     {% include "layout/message.html.twig" %}
-    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-    Salut {{ app.user.username }}
-    {% else %}
-    Salut toi :)
-    {% endif %}
+    <div class="row row-cols-2 row-cols-md-2 g-4 mt-2">
+        <div class="col">
+            <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Clubs</h5>
+                <p class="card-text">La liste des clubs</p>
+            </div>
+            </div>
+        </div>
+    
+        <div class="col">
+            <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Blog</h5>
+                <p class="card-text">Les derniers articles du site</p>
+            </div>
+            </div>
+        </div>
+    </div>
+    <div class="row g-0 mt-2">
+        <div class="card-group">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><a href="{{ path('app_tournament_calendar')}}">Calendar</a></h5>
+                    <p class="card-text">Voici les 5 prochaines compétitions</p>
+                </div>
+            </div>
+            {{ render(controller('App\\Controller\\TournamentController::next', {'max' :5, 'showInfo': false})) }}
+        </div>
+    </div>
+    
+    <div class="row g-0 mt-2">
+        <div class="card-group">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Résultats</h5>
+                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content.</p>
+                </div>
+            </div>
+            {{ render(controller('App\\Controller\\TournamentController::last', {'max' :5, 'showInfo': false})) }}
+        </div>
+    </div>    
 {% endblock %}

@@ -77,6 +77,29 @@ class ParticipantRepository extends ServiceEntityRepository
         return count($result) > 0;
     }
 
+    /**
+     * @var Participant[]
+     * @return Participant[] Returns an array of Participant objects
+     */
+    public function ranking($idTournament): array
+    {
+        // TODO : Vérifié ce qu'il se passe lorsque qu'on a plusieurs pelotons à des distances différentes
+        return $this->createQueryBuilder('p')
+                    ->leftJoin('p.platoon', 'pel')
+                    ->andWhere('pel.tournament = :val')
+                        ->setParameter('val', $idTournament)
+                    ->OrderBy('p.category', 'ASC')
+                        ->addOrderBy('p.points', 'DESC')
+                        ->addOrderBy('p.numberOfX', 'DESC')
+                        ->addOrderBy('p.numberOfTen', 'DESC')
+                        ->addOrderBy('p.numberOfNine', 'DESC')
+                    ->getQuery()
+                    ->getResult()
+                ;
+    }
+
+
+
 //    /**
 //     * @return Participant[] Returns an array of Participant objects
 //     */
