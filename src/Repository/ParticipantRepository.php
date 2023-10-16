@@ -81,9 +81,9 @@ class ParticipantRepository extends ServiceEntityRepository
      * @var Participant[]
      * @return Participant[] Returns an array of Participant objects
      */
-    public function ranking($idTournament): Array
+    public function ranking($idTournament): array
     {
-        // TODO : Vérifié ce qu'il se passe lorsque qu'on a plusieurs pelotons à des distances différentes 
+        // TODO : Vérifié ce qu'il se passe lorsque qu'on a plusieurs pelotons à des distances différentes
         return $this->createQueryBuilder('p')
                     ->leftJoin('p.platoon', 'pel')
                     ->andWhere('pel.tournament = :val')

@@ -24,7 +24,7 @@ class TournamentController extends AbstractController
     }
 
     #[Route('/', name: 'app_tournament_next', methods: 'GET')]
-    public function next(Int $max = 5, Bool $showInfo = false, TournamentRepository $tournamentRepository): Response
+    public function next(TournamentRepository $tournamentRepository, int $max = 5, bool $showInfo = false): Response
     {
         $tournaments = $tournamentRepository->nextTournaments($max);
         return $this->render('tournament/_agenda.html.twig', [
@@ -34,7 +34,7 @@ class TournamentController extends AbstractController
     }
 
     #[Route('/', name: 'app_tournament_last', methods: 'GET')]
-    public function last(Int $max = 5, Bool $showInfo = false, TournamentRepository $tournamentRepository): Response
+    public function last(TournamentRepository $tournamentRepository, int $max = 5, bool $showInfo = false): Response
     {
         $tournaments = $tournamentRepository->lastTournaments($max);
         return $this->render('tournament/_agenda.html.twig', [
