@@ -1,0 +1,14 @@
+{% for tournament in tournaments %}
+    <div class="card {% if date(tournament.startDate) < date() and date(tournament.endDate) > date()  %} shadow {% endif %}">
+        <div class="card-body">
+            <h5 class="card-title"><a href='{{ path('app_tournament_show', {'id': tournament.id}) }}'>{{ tournament.name }}</a></h5>
+        </div>
+        <div class="card-footer">
+            <i class="fad fa-calendar-alt" aria-hidden="true"></i> <span class="badge bg-secondary"> {{ tournament.startDate ? tournament.startDate|date('d-m-Y') : '' }} 
+            {% if tournament.startDate != tournament.endDate %}
+            {{ tournament.endDate ? tournament.endDate|date('d-m-Y') : '' }}
+            {% endif %}
+            </span>            
+        </div>
+    </div>
+{% endfor %}

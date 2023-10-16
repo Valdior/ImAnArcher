@@ -26,3 +26,34 @@ legend.form {
     background-color: white;
     color: black;
 }
+
+.shadow:before,
+.shadow:after {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    border-radius: 0.375rem;
+    background: linear-gradient(45deg, #fb0094, #0000ff, #00ff00, #ffff00, #ff0000, #fb0094, #0000ff, #00ff00, #ffff00, #ff0000);
+    background-size: 400%;
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+    z-index: -1;
+    animation: animate 20s linear infinite;
+}
+
+.shadow:after {
+    filter: blur(3px);
+}
+
+@keyframes animate {
+    0% {
+        background-position: 0 0;
+    }
+    50% {
+        background-position: 300% 0;
+    }
+    100% {
+        background-position: 0 0;
+    }
+}

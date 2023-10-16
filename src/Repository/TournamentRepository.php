@@ -65,6 +65,34 @@ class TournamentRepository extends ServiceEntityRepository
                 ;
     }
 
+    public function nextTournaments($max)
+    {
+        $query = $this->createQueryBuilder('t')
+                        ->Where('t.endDate >= :date')
+                        ->setParameter(':date', new \Datetime())
+                        ->orderBy('t.startDate', 'ASC')
+                        ->setMaxResults($max)
+                            ;
+
+        return $query->getQuery()
+                        ->getResult()
+                    ;
+    }
+
+    public function lastTournaments($max)
+    {
+        $query = $this->createQueryBuilder('t')
+                        ->Where('t.startDate <= :date')
+                        ->setParameter(':date', new \Datetime())
+                        ->orderBy('t.endDate', 'DESC')
+                        ->setMaxResults($max)
+                            ;
+
+        return $query->getQuery()
+                        ->getResult()
+                    ;
+    }
+
 //    /**
 //     * @return Tournament[] Returns an array of Tournament objects
 //     */

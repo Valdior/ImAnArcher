@@ -6,6 +6,7 @@ use App\Entity\Tournament;
 use App\Form\TournamentType;
 use App\Repository\TournamentRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\ParticipantRepository;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,14 +23,23 @@ class TournamentController extends AbstractController
     ) {
     }
 
-    #[Route('/', name: 'app_tournament', methods: 'GET')]
-    public function index(TournamentRepository $tournamentRepository): Response
+    #[Route('/', name: 'app_tournament_next', methods: 'GET')]
+    public function next(Int $max = 5, Bool $showInfo = false, TournamentRepository $tournamentRepository): Response
     {
-        $result = $tournamentRepository->findBy(array(), array('startDate' => 'DESC'));
+        $tournaments = $tournamentRepository->nextTournaments($max);
+        return $this->render('tournament/_agenda.html.twig', [
+            'tournaments' => $tournaments,
+            'showInfo' => $showInfo
+        ]);
+    }
 
-        return $this->render('tournament/index.html.twig', [
-            'current_menu'  => 'tournament',
-            'tournaments' => $result
+    #[Route('/', name: 'app_tournament_last', methods: 'GET')]
+    public function last(Int $max = 5, Bool $showInfo = false, TournamentRepository $tournamentRepository): Response
+    {
+        $tournaments = $tournamentRepository->lastTournaments($max);
+        return $this->render('tournament/_agenda.html.twig', [
+            'tournaments' => $tournaments,
+            'showInfo' => $showInfo
         ]);
     }
 
@@ -57,7 +67,7 @@ class TournamentController extends AbstractController
             $entityManager->persist($tournament);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_tournament');
+            return $this->redirectToRoute('app_tournament_calendar');
         }
 
         return $this->render('tournament/new.html.twig', [
@@ -115,6 +125,13 @@ class TournamentController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_tournament');
+        return $this->redirectToRoute('app_tournament_calendar');
+    }
+
+    #[Route('/{id}/ranking', name: 'app_tournament_ranking', methods: 'GET')]
+    public function ranking(Tournament $tournament, ParticipantRepository $repo)
+    {
+        $participants = $repo->ranking($tournament->getId());
+        return $this->render('tournament/_ranking.html.twig', ['participants' => $participants]);
     }
 }

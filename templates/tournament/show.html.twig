@@ -27,7 +27,7 @@
 
 
     {% if date(tournament.endDate) < date("now") %}
-    {# {{ render(controller('App\\Controller\\TournamentController::ranking', {'id': tournament.id})) }} #}
+    {{ render(controller('App\\Controller\\TournamentController::ranking', {'id': tournament.id})) }}
     {% endif %}
 <div class="btn-group" role="group" aria-label="action">
     <a href="{{ path('app_tournament_calendar') }}" class='btn btn-secondary'><i class='fad fa-undo'></i> {{ 'form.label.backtolist' | trans }}</a>

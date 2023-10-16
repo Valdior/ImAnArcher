@@ -1,0 +1,51 @@
+<div class="row">   
+    <section class="col-md-12">
+        <h3>Classement</h3>
+        <table  class="table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Full Name</th>
+                    <th>Club</th>
+                    <th>Total</th>
+                    <th>10</th>
+                    <th>9</th>
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <th>Action</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            </body>
+            {% set cat = null %}
+            {% set place = 0 %}
+            {% for participant in participants %}                
+                {% set cattemp = participant.category %}                
+                {% if cattemp != cat %}
+                {% set cat = participant.category %}
+                {% set place = 0 %}
+                <tr>
+                    <td colspan="7" scope="row"><strong>{{ cat }}</strong></td>
+                </tr>
+                <tr>
+                {% endif %}
+                {% set foo = participant.archer.affiliations|reverse|first %}
+                {% set place = place + 1 %}
+                    <td scope="row">{{ place }}</td>
+                    <td>{{ participant.archer.fullname }}</td>
+                    <td>{{ foo.club.acronym }}</td>   
+                    <td>{{ participant.points }}</td>
+                    <td>{{ participant.numberoften }}</td>
+                    <td>{{ participant.numberofnine }}</td>
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <td><a href="{{ path('participant_edit', {'slug': participant.peloton.tournament.slug, 'id': participant.id}) }}">Edit</a></td>
+                    {% endif %}
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="7">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+</div>
