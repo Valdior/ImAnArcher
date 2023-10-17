@@ -13,7 +13,7 @@
         <a class='btn btn-success btn-sm'>Déjà inscrit pour cette session</a>
         <a href="{{ path('participant_unregister', {'tournament': tournament.id, 'id' : platoon.id}) }}"  class="btn btn-sm btn-warning">Se désinscrire</a>
     {% else %}
-        {% if not isLimitExcedeed %}
+        {% if not isLimitExcedeed and date(tournament.startDate) > date() %}
         <a href='{{ path('participant_register', {'tournament': tournament.id, 'id' : platoon.id}) }}' class='btn btn-primary btn-sm'>
             S'inscrire
         </a>

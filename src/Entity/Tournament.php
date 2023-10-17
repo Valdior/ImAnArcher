@@ -44,6 +44,9 @@ class Tournament
     #[ORM\Column(length: 100)]
     private ?string $name = null;
 
+    #[ORM\ManyToOne]
+    private ?Location $location = null;
+
     public function __construct()
     {
         $this->platoons = new ArrayCollection();
@@ -150,5 +153,17 @@ class Tournament
         if (strlen(trim($this->name)) == 0) {
             $this->name = $this->getOrganizer()->getAcronym() . ' - ' . $this->getOrganizer()->getName();
         }
+    }
+
+    public function getLocation(): ?Location
+    {
+        return $this->location;
+    }
+
+    public function setLocation(?Location $location): static
+    {
+        $this->location = $location;
+
+        return $this;
     }
 }
