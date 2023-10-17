@@ -4,8 +4,9 @@ namespace App\DataFixtures;
 
 use App\Entity\Tournament;
 use App\Enum\TournamentTypeEnum;
-use Doctrine\Bundle\FixturesBundle\Fixture;
+use App\DataFixtures\LocationFixtures;
 use Doctrine\Persistence\ObjectManager;
+use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class TournamentFixtures extends Fixture implements DependentFixtureInterface
@@ -88,6 +89,7 @@ class TournamentFixtures extends Fixture implements DependentFixtureInterface
         $tournament->setEndDate(new \DateTime("01/14/2024"));
         $tournament->setType(TournamentTypeEnum::Indoor);
         $tournament->setOrganizer($this->getReference(ClubFixtures::CLUB_ITW));
+        $tournament->setLocation($this->getReference(LocationFixtures::LOC_ITW));
         $manager->persist($tournament);
 
         $this->addReference(self::TOURN_ITW, $tournament);
@@ -169,6 +171,7 @@ class TournamentFixtures extends Fixture implements DependentFixtureInterface
     {
         return array(
             ClubFixtures::class,
+            LocationFixtures::class,
         );
     }
 }

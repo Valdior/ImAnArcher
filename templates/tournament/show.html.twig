@@ -22,18 +22,30 @@
                 {% endfor %}
             </ol>
             {# {% endif %} #}
-        <section>
+        </section>
+        <section class='col-6'>
+            <h3>{{ 'form.label.address' | trans }}</h3>
+            <article class='card mb-3'>
+                <div class="card-body">
+                <p class="card-text">
+                    {% include 'location/_address.html.twig' with {address: tournament.location} only %}
+                </p>
+            </div>
+            </article>
+        </section>
     </div>
 
 
     {% if date(tournament.endDate) < date("now") %}
     {{ render(controller('App\\Controller\\TournamentController::ranking', {'id': tournament.id})) }}
     {% endif %}
+    <div class='row'>
 <div class="btn-group" role="group" aria-label="action">
     <a href="{{ path('app_tournament_calendar') }}" class='btn btn-secondary'><i class='fad fa-undo'></i> {{ 'form.label.backtolist' | trans }}</a>
 {% if is_granted('ROLE_ADMIN') %}
     <a href="{{ path('app_tournament_edit', {'id': tournament.id}) }}" class='btn btn-primary'><i class='fad fa-edit'></i> {{ 'form.label.update' | trans }}</a>
     {{ include('tournament/_delete_form.html.twig') }}
 {% endif %}
+</div>
 </div>
 {% endblock %}

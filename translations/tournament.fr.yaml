@@ -7,6 +7,7 @@ form.label.new: Créer une nouvelle
 form.label.edit: Modifié
 form.label.whereandwhen: Où et Quand ?
 form.label.norecords: Aucun donnée trouvée
+form.label.address: Adresse
 
 form.tournament.name: Nom de la compétition
 form.tournament.startDate: Date de début
