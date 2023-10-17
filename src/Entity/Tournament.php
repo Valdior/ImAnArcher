@@ -43,7 +43,6 @@ class Tournament
 
     #[ORM\Column(length: 100)]
     private ?string $name = null;
-
     #[ORM\ManyToOne]
     private ?Location $location = null;
 
@@ -163,7 +162,6 @@ class Tournament
     public function setLocation(?Location $location): static
     {
         $this->location = $location;
-
         return $this;
     }
 }

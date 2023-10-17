@@ -6,7 +6,7 @@ use App\Entity\Location;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-class LocationFixtures extends Fixture 
+class LocationFixtures extends Fixture
 {
     public const LOC_ITW = "loc-itw";
 
