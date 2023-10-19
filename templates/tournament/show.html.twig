@@ -29,11 +29,13 @@
             </div>
             <h3>{{ 'form.label.address' | trans }}</h3>
             <article class='card mb-3'>
+                {% if tournament.location is not null %}
                 <div class="card-body">
                     <p class="card-text">
                         {% include 'location/_address.html.twig' with {address: tournament.location} only %}
                     </p>
                 </div>
+                {% endif %}
             </article>
         </section>
     </div>
