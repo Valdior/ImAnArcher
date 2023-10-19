@@ -10,6 +10,7 @@ use App\Enum\TournamentTypeEnum;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\AbstractType;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -49,6 +50,7 @@ class TournamentType extends AbstractType
                 'allow_delete' => true,
                 'by_reference' => false
             ))
+            ->add('invitation', VichFileType::class)
         ;
     }
 
