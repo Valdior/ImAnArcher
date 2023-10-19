@@ -25,7 +25,8 @@
         "symfony/webpack-encore-bundle": "^1.16",
         "symfony/yaml": "6.2.*",
         "symfonycasts/reset-password-bundle": "^1.16",
-        "symfonycasts/verify-email-bundle": "^1.12"
+        "symfonycasts/verify-email-bundle": "^1.12",
+        "vich/uploader-bundle": "^2.2"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.4",
