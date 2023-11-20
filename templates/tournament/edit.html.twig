@@ -56,10 +56,6 @@
             let elements = collection.firstElementChild;
             let index = 0;
 
-            if(!(elements.children.length === 1 && elements.children[0].id.endsWith(`_${index}`))) {
-                return;
-            }
-
             for (const child of elements.children) {
                 let body = document.createElement("div");
                 let boutonSuppr = document.createElement("button");

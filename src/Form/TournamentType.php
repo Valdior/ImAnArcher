@@ -13,6 +13,7 @@ use Symfony\Component\Form\AbstractType;
 use Vich\UploaderBundle\Form\Type\VichFileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\PropertyAccess\PropertyPath;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -50,7 +51,11 @@ class TournamentType extends AbstractType
                 'allow_delete' => true,
                 'by_reference' => false
             ))
-            ->add('invitation', VichFileType::class)
+            ->add('invitation', VichFileType::class, array(
+                'required' => false,
+                'delete_label' => 'form.tournament.delete_confirm',
+                'download_label' => new PropertyPath('name'),
+            ))
         ;
     }
 

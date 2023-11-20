@@ -8,7 +8,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 
 trait ReadOnlyTrait
 {
-    public function configureActions(Actions $actions): Actions 
+    public function configureActions(Actions $actions): Actions
     {
         $actions
             ->disable(Action::NEW, Action::EDIT, Action::DELETE)

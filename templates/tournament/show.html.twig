@@ -24,9 +24,11 @@
             {# {% endif %} #}
         </section>
         <section class='col-6'>
+            {% if tournament.filename is not null %}
             <div>
                 Invitation : <a href='{{ vich_uploader_asset(tournament, 'invitation') }}' title='{{ tournament.name }}' target='_blank' >{{ tournament.name }}</a>
             </div>
+            {% endif %}
             <h3>{{ 'form.label.address' | trans }}</h3>
             <article class='card mb-3'>
                 {% if tournament.location is not null %}

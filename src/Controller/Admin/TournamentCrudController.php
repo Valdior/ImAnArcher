@@ -17,7 +17,6 @@ class TournamentCrudController extends AbstractCrudController
     {
         return Tournament::class;
     }
-    
     public function configureFields(string $pageName): iterable
     {
         return [
@@ -32,7 +31,6 @@ class TournamentCrudController extends AbstractCrudController
             AssociationField::new('organizer'),
             AssociationField::new('platoons'),
             AssociationField::new('location'),
-            
         ];
     }
 }
