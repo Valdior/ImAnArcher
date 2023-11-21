@@ -36,7 +36,7 @@
               <li><a class="dropdown-item" href="#">Another action</a></li>
                   <div class="dropdown-divider"></div>
                   {% if is_granted('ROLE_ADMIN') %}
-                  {# <a class="dropdown-item" href="{{ path('admin_dashboard') }}"><i class="fad fa-sign-out"></i> Administration</a> #}
+                  <a class="dropdown-item" href="{{ path('admin') }}"><i class="fad fa-cog"></i> Administration</a>
                   {% endif %}
                   <li><a class="dropdown-item" href="{{ path('app_logout') }}"><i class="fad fa-sign-out"></i> {{ 'user.logout.title' | trans }}</a></li>
             </ul>

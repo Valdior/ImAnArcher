@@ -14,3 +14,5 @@ form.tournament.startDate: Date de début
 form.tournament.endDate: Date de fin
 form.tournament.type: Type de compétition
 form.tournament.organizer: Organisateur
+
+form.tournament.delete_confirm: supprimer le document
